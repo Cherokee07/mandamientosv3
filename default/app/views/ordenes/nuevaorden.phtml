@@ -1,0 +1,59 @@
+<?= Tag::js('jquery/jquery.min'); ?>
+
+<section class="content">
+      <div class="box box-primary">
+          <h3 class="box-title">Nueva Orden de Aprehensión</h3>
+             <div class="box-body">                  
+                <div class="col-md-6" id="exppenal">
+                    <label for="exp">Expediente Penal : </label>
+                    <?php echo Form::number('exppenal','id="expediente_id" class="form-control" onblur="convierte(this)"') ?><br>
+                </div>
+                <div class="col-md-6" id="anipenal">
+                    <label for="año">Año Penal : </label>
+                    <?php echo Form::number('anipenal','id="anio_id" class="form-control" onblur="convierte(this)"') ?><br>
+                </div>
+                <div class="col-md-6" id="juzgados_id">
+                    <label class="ingreso">Juzgado : </label>
+                    <?php echo Form::dbSelect('juzgados_id','juzgado',array('juzgados','listar'),'Seleccione','class="form-control select2" style="width: 100%"') ?>
+                </div>
+                <div class="col-md-6" id="tiposoa_id">
+                    <label>Tipo de Orden:</label>
+                    <?php echo Form::dbSelect('tiposoa_id','descripcion',array('tiposoa','listar'),'Seleccione','class="form-control select2" style="width: 100%"') ?>                   </div>
+                </div>
+                <div class="box box-primary" id="div_formato">
+                    <?php echo Form::submit("Iniciar",'id="btnAccion" class= "btn btn-primary" onclick="valida();"' )?>
+                    <?php echo Form::close(); ?> 
+                </div>
+		</div>
+  </section>
+  
+
+  <script>
+	function valida(){
+		procede = "no";
+		anio = $("#anipenal").val();
+		expediente = $("#exppenal").val();
+		juzgado = $("#juzgados_id").val();
+		tipo = $("#tiposoa_id").val();		
+		if(anio!=="" && expediente!=="" && juzgado!=="" && tipo!==""){
+			procede = "si";
+		} else { procede = "no"; }		
+		url = "<?php echo PUBLIC_PATH . 'orden/generarOrden/'; ?>";
+		div = $("#div_formato");
+		datos = "procede="+procede;
+		ajax_json(url,datos,div);
+	}
+	function ajax_json(url, datos, div) {
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: datos,
+            error: function(){
+                jAlert("Error en proceso", "Verificar");
+            },
+            success: function(html){
+              div.html(html);
+            }
+        });
+    }
+  </script>

@@ -1,0 +1,15 @@
+<script type="text/javascript">
+	$(function() {
+		//donde datepicker es el ID del input que se asociara al componente datapicker
+		$("<?php echo join(',',$parametros)?>").datepicker({
+//			Aqui damos los parametros que requiera el componente - Añadida traducción al español.
+			dateFormat: 'dd-mm-yy',
+			firstDay: 1,
+			monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+			monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ag','Sep','Oct','Nov','Dic'],
+			dayNamesMin: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+			changeday: true, //afirmamos que se pueda cambiar de dia,
+			changeMonth: true, //afirmamos que se pueda cambiar de mes
+			changeYear: true}); //afirmamos que se pueda cambiar de año
+	});
+</script>

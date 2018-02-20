@@ -1,0 +1,273 @@
+<?php
+/**
+ * Helpers dataGrid
+ * PHP version 5
+ * LICENSE
+ *
+ * This source file is subject to the GNU/GPL that is bundled
+ * with this package in the file docs/LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to fidel.oyarzo@gmail.com so we can send you a copy immediately.
+ *
+ * @author Fidel Oyarzo <fidel.oyarzo@gmail.com>
+ */
+?>
+<!---<link href="<?php Tag::css('datagrid/' . $dataGrid->style)?>" rel="stylesheet" type="text/css" /> -->
+  <?php echo Html::includeCss() ?>
+<?php if($dataGrid->create){ ?>
+<?php echo "<th>".Html::link($dataGrid->create, Html::img('datagrid/nuevo.png','Nuevo'),'class="fg-button ui-button ui-state-default" id="nuevo" rel='.$dataGrid->rel)."</th>"; ?>
+<?php } ?>
+<?php if($dataGrid->index){ ?>
+<?php echo "<th>".Html::link($dataGrid->index, Html::img('datagrid/refresca.png','Nuevo'),'class="fg-button ui-button ui-state-default"')."</th>"; ?>
+<?php } ?>
+<?php
+if($dataGrid->existData()){
+	$dataGrid->cont_cols=0;
+	//echo stylesheet_link_tag('datagrid/' . $dataGrid->style);
+	
+	/**
+	 * Librerias para formatos de las celdas
+	 */
+	require  APP_PATH.'libs/data_grid/formats.php';
+	/**
+	 * Utilidades
+	 */
+	require  APP_PATH.'libs/data_grid/utils.php';
+	
+	
+	//require  '../models/datagrid/datagrid.php';
+		$cols			=	0;
+		$button_filter		=	'';
+		$button_save		=	'';
+		$form			=	'';
+		$end_form		=	'';
+		$sources		=	array();
+		$cont_options		=	0;
+	if($dataGrid->set_check){
+		$cont_options		=	1;
+	}
+	if($dataGrid->auto_filter){
+		if(isset($_POST['sel_dtg'])){
+			$sel_dtg	=	$_POST['sel_dtg'];
+			$dataGrid->AutoFilter($sel_dtg);
+		}else{
+			$sel_dtg	=	array();
+		}
+		$cont_options	=	2;
+		$button_filter	=	"<input type='submit' value: '" . $dataGrid->btn_caption . "'>";
+		$form		=	"<form action='". $dataGrid->url . "' method='post'>";
+		$end_form	=	"</form>";
+	}
+	if($dataGrid->save!=''){
+		$button_save	=	submit_tag($dataGrid->btn_save);
+		$form		=	form_tag($dataGrid->save);
+		$end_form	=	end_form_tag();
+	}
+	$cont_options		=	$dataGrid->countOptions()+$cont_options;
+	$cont_all		=	count($dataGrid->headers)+$cont_options;
+	$asc_desc		=	'/asc';	
+	if($dataGrid->use_paginator){
+		if(count($dataGrid->data_source)>0){
+			$sources			=	$dataGrid->data_source->items;
+		}
+	}else{
+		if(count($dataGrid->data_source)>0){
+			$sources	=	$dataGrid->data_source;
+		}
+	}
+	?>
+	
+	<?php echo $form; ?>
+	<table class="ui-helper-reset ui-widget-header ui-corner-all" id="tbldatos_id">
+	<?php if(isset($dataGrid->title_caption)){ ?>
+		<caption>
+		<?php echo $dataGrid->title_caption; ?>
+		</caption>
+	<?php } ?>
+		<thead>
+		<tr>
+	<?php if($dataGrid->use_paginator){
+		if($dataGrid->paginator_name!='default'){
+			$paginator	=	'paginators/' . $dataGrid->paginator_name;
+		}else{
+			$paginator	=	'datagrid/paginators/default';
+		} ?>
+		<th colspan="<?php echo $cont_all ?>" class='nav_tools'>
+		<?php 	View::partial($paginator, false, array('page' => $dataGrid->data_source, 'show' => $dataGrid->show, 'url' => $dataGrid->getUrl())); ?>
+		</th> 
+	<?php } ?>
+		</tr>
+		<tr>
+		<?php if($dataGrid->set_check==TRUE){?>
+			<th>&nbsp</th>
+		<?php } ?>
+		<?php foreach ($dataGrid->headers as $field => $head){ ?>
+				<th><?php echo $head; ?></th>
+		<?php } ?>
+		<?php /*if($cont_options>0){ ?>
+			<th colspan="<?php echo $cont_options ?>">OPCIONES </th>*/ //EL EDITAR Y BORRAR LO AGREGE
+			if($dataGrid->edit!=''){ ?>
+			<th>EDITAR </th>	
+		<?php } ?>
+		<?php if($dataGrid->delete!=''){ ?>
+			<th>BORRAR </th>	
+		<?php } ?>		
+		</tr>
+		</thead>
+		</tbody>	
+		<?php if($dataGrid->auto_filter){ ?>
+			<tr>
+		<?php foreach ($dataGrid->getFieldsAndHeaders() as $field => $head){
+				$field		=	get_field($field);
+				?>
+				<th><?php echo $dataGrid->printSelect($field, $sel_dtg); ?></th>
+			<?php } ?>
+		<?php if($cont_options>0){ ?>
+				<th colspan="<?php echo $cont_options ?>"><?php echo $button_filter; ?></th>
+		<?php } ?>
+			</tr>
+		<?php }
+		foreach ($sources as $source){  ?>
+			<tr class='ui-helper-reset ui-widget-content'>
+		<?php if($dataGrid->set_check==TRUE){?>
+			<td><input type='checkbox' value='<?php echo $source->id; ?>'></td>
+		<?php } ?>				
+	<?php	foreach($dataGrid->fields as  $field => $key){
+			$cols++;
+			$value = $dataGrid->getFormat($field, $source->$field);
+			$format= $dataGrid->getClass($field, $source->$field);
+			$value = $dataGrid->getAlias($field, $value);
+			if(strstr($field, 'new_col')){
+				$value = $dataGrid->getNewCol($key, $source);
+			}
+			$valueImage = $dataGrid->getImage($field, $value);
+			if($valueImage!=$value){
+				$value	= Html::img("datagrid/" . $valueImage);
+			}   
+			if(strstr($field,'_')){
+				if(count($dataGrid->getValue($field))>0){
+					$array_field		=	$dataGrid->getValue($field);
+					if($item		=	Load::model($array_field[0])->find($source->$field))
+					$value			=	$item->$array_field[1];
+					unset($field_aux);
+				}
+				
+			}
+	?>
+			<td class='<?php echo $format ?>'><?php echo utf8_encode($value); ?></td>
+				
+	<?php
+			if($dataGrid->getSumColumn($field)){
+				error_reporting(0);
+				$columns[$field] = $columns[$field] + $source->$key;
+			}
+			unset($format);
+		}
+			if($dataGrid->edit!=''){ 	?>
+				<td><?php echo Html::link($dataGrid->edit.'/' . $source->id, Html::img('datagrid/edit.gif','Editar'),'class="edit" id = '.$source->id); ?></td>
+	<?php		}
+			if($dataGrid->delete!=''){
+				$confirm		=	'';
+				if($dataGrid->delete_confirm!=''){
+					$msg		=	$dataGrid->delete_confirm;
+					$str		=	preg_match_all('/{[\s\w\/<>=\\\"]*}/', $msg, $items);
+					$values		=	'';
+					foreach ($items[0] as $item){
+						$value	=	str_replace(array('{','}'), '', $item);
+						$msg	=	str_replace($item, $source->$value, $msg);
+					}
+					$confirm	=	"onclick=\"return confirm('$msg');\"";
+					unset($msg);
+					unset($str);
+					unset($values);
+					unset($items);
+					unset($item); ?>
+	<?php 
+				} ?>
+				<td><?php echo Html::link($dataGrid->delete.'/' . $source->id, Html::img('datagrid/delete.gif','Borar'),'class="delete" '.$confirm); ?></td>				
+	<?php
+				unset($confirm);
+				unset($value);
+			} ?>
+	<?php
+		$url = 'http://' . $_SERVER['SERVER_NAME'];
+		foreach($dataGrid->array_mimes as $key => $value){
+			$folders	=	explode('.', $value);
+			$f='';
+			$tamano		=	count($folders);
+			for($i_f = 0; $i_f<$tamano-1; $i_f++){
+				$f	.=	$folders[$i_f] . '/';
+			}
+			$url	.=	URL_PATH . $f . Router::get('controller') . '/' ;
+			$value	=	$folders[$tamano-1];
+			?>
+		<?php if(substr($value,0,1)=='_'){ ?>
+			<td><a href="<?php echo $url . substr($value, 1, strlen($value)-1) .  '/' . $source->id; ?>" target="_blank">
+			<?php echo Html::img('datagrid/' . $key . '.gif'); ?></a></td>
+		<?php }else{ ?>
+			<td><a href="<?php echo  $url . $value . '/' . $source->id; ?>">
+			<?php echo Html::img('datagrid/' . $key . '.gif'); ?></a></td>
+		<?php }
+		}
+		unset($key);
+		unset($value); ?>
+	</tr>
+	<?php	}
+			if(count($dataGrid->sum_column)>0){
+			?>
+			<tr class='ui-helper-reset ui-state-hover'>
+		<?php if($dataGrid->set_check==TRUE){?>
+			<td>&nbsp;</td>
+		<?php } ?>				
+		<?php
+			foreach($dataGrid->fields as  $k => $v){
+			if($dataGrid->getSumColumn($k)){
+				$value = $columns[$k];
+			}else{
+				$value = '';
+			}
+		?>
+		
+			<td class=''><?php echo utf8_encode($value); ?></td>
+		<?php } ?>
+			</tr>
+		<?php } ?>
+	<?php
+	if($button_save!=''){
+		$cols=$cols+$cont_options;
+		echo	"<tr>
+				<th aling='center' colspan='$cols'>$button_save</th>
+			</tr>";
+	}
+	?>
+	</tbody>
+	</table>
+	<?php echo $end_form; ?>
+<?php } 
+  $params=explode(";",$dataGrid->rel);
+  $ancho = explode("=",@$params[1]);
+  $alto = explode("=",@$params[2]);
+?>
+<script type='text/javascript'> 
+$(function(){
+    $('tr.ui-helper-reset').hover(
+        function() { $(this).addClass('ui-state-hover'); }, 
+            function() { $(this).removeClass('ui-state-hover'); }
+        ).mousedown(function(){
+            $(this).addClass("ui-state-active"); 
+        })
+        .mouseup(function(){
+                $(this).removeClass("ui-state-active");
+        });
+}); 
+  $(function(){
+  $(function(){
+	function detecta(e){
+		Shadowbox.open({content: "<?php echo PUBLIC_PATH.$dataGrid->edit,'/'; ?>"+$(this).attr("id"), player: 'iframe', width: <?php echo $ancho[1]; ?>, height: <?php echo $alto[1]; ?>, modal: true,handleOversize: "rezise", enableKeys: false,});
+		return false;
+	}
+	$('a.edit').click(detecta);
+  });  
+</script>

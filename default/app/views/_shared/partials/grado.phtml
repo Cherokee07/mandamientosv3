@@ -1,0 +1,7 @@
+<script type="text/javascript">
+	$(function() {
+		//donde datepicker es el ID del input que se asociara al componente datapicker
+		$.mask.definitions['G']='[123456]';
+		$("<?php echo join(',',$parametros)?>").mask("G");
+	});
+</script>

@@ -1,0 +1,8 @@
+<script type="text/javascript">
+var nombre = "<?php echo "#".$parametros['nombre'] ?>";
+$(nombre).change(function(){
+var datos_id=$(nombre).val();
+url="<?php echo PUBLIC_PATH.$parametros['modelo'].'/complementarios/'; ?>" + datos_id;
+$("<?php echo "#div_".$parametros['modelo'] ?>").load(url);
+});
+</script>

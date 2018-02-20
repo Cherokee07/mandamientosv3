@@ -1,0 +1,101 @@
+<?= Tag::js('jquery/jquery.min'); ?>
+
+<section class="content">
+    <?php echo Form::open("ordenes/crearorden",'POST','class="form-group"'); ?>
+      <div class="box box-primary">
+              <h3 class="box-title">Datos Orden de Aprehensión</h3>      
+             <div class="box-body">
+                <div class="col-md-6 form-group">
+                    <label  class="text-blue text-center">Expediente Penal  </label>
+                      <input type="number" name="ordenes[exppenal]" class="form-control">
+                </div>
+                <div class="col-md-6 form-group">
+                    <label  class="text-blue text-center">Año Penal  </label>
+                    <input type="number" name="ordenes[anipenal]" class="form-control">
+                </div>
+                <div class="col-md-6 form-group" >
+                    <label  class="text-blue text-center">Juzgado  </label>
+                    <?php echo Form::dbSelect('ordenes.juzgados','juzgado',array('juzgados','listar'),'Seleccione','class="form-control" style="width: 100%"') ?>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label  class="text-blue text-center">Tipo de Orden </label>
+                    <?php echo Form::dbSelect('ordenes.tiposoa','descripcion',array('tiposoa','listar'),'Seleccione','class="form-control" style="width: 100%"') ?>                   
+                </div>
+                <div class="col-md-12 form-group">
+                    <label class="control-label col-md-2">Distrito </label>
+                    <div class="col-md-10">
+                    <?php echo Form::dbSelect('distritos_id','distrito',array('distritos','listar'),'Seleccione',' class="form-control"  style="width: 100%"') ?>
+                </div>
+                </div>
+                <div class="col-md-12 form-group" >
+                    <label class="control-label col-md-2" for="municipios_id">Municipio  </label>
+                    <div class="col-md-10" id='div_municipios'></div>
+                </div>
+                <div class="col-md-12 form-group">
+                    <label class="control-label col-md-2" for="localidades_id">Localidad  </label>
+                    <div class="col-md-10" id='div_localidades'></div>
+                </div><hr>
+                <div class="col-md-2 form-group">
+                    <label class="text-blue text-center">Averiguacion </label>
+                    <input type="number" name="ordenes[averiguacion]" class="mayuscula form-control"  data-toggle="tooltip" title="Anexado a plataforma Mexico">
+                </div>
+                <div class="col-md-6 form-group">
+                    <label class="text-blue text-center">Agencia </label>
+                    <?php echo Form::dbSelect('ordenes.agencias','agencia',array('agencias','listar'),'Seleccione','class="form-control" style="width: 100%"') ?>               
+                </div>
+                <div class="col-md-2 form-group">
+                    <label class="text-blue text-center">Año </label>
+                    <input type="number" name="ordenes[aniagen]" class="form-control"  data-toggle="tooltip" title="Anexado a plataforma Mexico">                
+                </div>
+                <div class="col-md-2 form-group">
+                    <label class="text-blue text-center">Turno </label>
+                    <input type="number" name="ordenes[turno]" class="form-control"  data-toggle="tooltip" title="Anexado a plataforma Mexico">                
+                </div>
+                <div class="col-md-12 form-group">
+                    <label class="text-blue text-center">Fecha de Libramiento </label>
+                    <input type="date" name="ordenes[feclib]" class="form-control"  data-toggle="tooltip" title="Anexado a plataforma Mexico">                                    
+                </div>
+                <div class="col-md-6 form-group">
+                    <label class="text-blue text-center">Fecha de recibido</label>
+                    <input type="date" name="ordenes[fecrec]" class="form-control"  data-toggle="tooltip" title="Anexado a plataforma Mexico">                                    
+                </div>
+                <div class="col-md-6 form-group">
+                    <label>Oficio recibido </label>
+                    <input type="text" name="ordenes[ofirec]" class="mayuscula form-control"  data-toggle="tooltip" title="Anexado a plataforma Mexico">                                   
+                </div>
+                <div class="col-md-6 form-group">
+                    <label>Fecha entrega </label>
+                    <input type="date" name="ordenes[fecentpj]" class="form-control"  data-toggle="tooltip" title="Anexado a plataforma Mexico">                                    
+                </div>
+                <div class="col-md-6 form-group">
+                    <label>Oficio recibido </label>
+                    <input type="text" name="ordenes[ofientpj]" class=" mayuscula form-control"  data-toggle="tooltip" title="Anexado a plataforma Mexico">                                                        
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>Sintesis de los hechos </label>
+                    <input type="textarea" name="ordenes[sintesis]" class="mayuscula form-control"  data-toggle="tooltip" title="Anexado a plataforma Mexico">                                                                        
+                </div>
+                <div class="box-footer">
+            	<div class="col-lg-3 col-md-3 pull-right">
+      		<button type="reset" class="btn btn-warning btn-flat" style="margin-right:10px;">Limpiar</button>
+        	<button type="submit" value="formulario" name="formulario" class="btn btn-success btn-flat">Registrar</button>
+        </div> 
+      </div>
+      </div>
+    <?php echo Form::close(); ?>
+             </div>                   
+ </section>
+
+ <script type='text/javascript'>
+  $(document).on('change', "#distritos_id", function () {
+    var distritos_id = $('#distritos_id').val();
+     $.ajax({
+       type: "POST",
+       url: "<?php echo PUBLIC_PATH . 'ordenes/getMunicipios/'; ?>",
+       data: "distritos_id=" + distritos_id,
+       success: function (html) {
+         $("#div_municipios").html(html);
+       }
+    });
+  });
+</script>

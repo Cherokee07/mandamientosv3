@@ -1,0 +1,94 @@
+<?php
+/**
+ * KumbiaPHP web & app Framework
+ *
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://wiki.kumbiaphp.com/Licencia
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@kumbiaphp.com so we can send you a copy immediately.
+ *
+ * Paginador "classic" para aplicaciones
+ *
+ * Parametros del paginador:
+ *   page: objeto obtenido al invocar al paginador
+ *   show: numero de paginas que se mostraran en el paginador
+ *   url: url para la accion que efectua la paginacion, por defecto "module/controller/page/"
+ *        y se envia por parametro el numero de pagina
+ * 
+ * @category   Kumbia
+ * @package    Partials 
+ * @copyright  Copyright (c) 2005-2009 Kumbia Team (http://www.kumbiaphp.com)
+ * @license    http://wiki.kumbiaphp.com/Licencia     New BSD License
+ */
+
+//if(!isset($url)) {
+ //   extract(Router::get());
+
+    $array_url	=	Router::get('parameters');
+    $id = '';
+    
+    //$url	= substr($url,0,-1);
+    //$url = "$controller/page";
+//    if($module) {
+//        $url = "$module/$url";
+//    }
+//}
+if(!isset($show)) {
+    $show = 10;
+}
+$half = (int)($show/2);
+    
+/**
+ * Calculando el inicio de paginador centrado
+ **/
+if ($page->current <= $half) {
+    $start = 1;
+} elseif (($page->total - $page->current)<$half) {
+    $start = $page->total - $show + 1;
+} else {
+    $start = $page->current - $half;
+}
+?>
+
+<div class="ui-helper-reset ui-helper-clearfix  ui-widget-header ui-corner-all">
+    <?php 
+    	if($page->prev){ ?>
+		<a href='<?php echo PUBLIC_PATH . "$url/1/$id" ?>'><?php echo Html::img('datagrid/first.gif','Primero','class="first"');?></a>
+		<a href='<?php echo PUBLIC_PATH . "$url/$page->prev/$id" ?>'><?php echo Html::img('datagrid/prev.gif','Anterior','class="prev"');?></a>
+<?php	}else{?>
+		<?php echo Html::img('datagrid/first.d.gif','Primero','class="first"');?>
+		<?php echo Html::img('datagrid/prev.d.gif','Anterior','class="prev"');?>
+<?php  	} ?>
+
+    <?php
+    	$option_value	=	'';
+    	for($i=1; $i<=$page->total; $i++):
+    		if($page->current == $i){ $selected = 'selected="selected"'; }else{ $selected = ''; }
+    		$option_value	.=	'<option value ="' . $i . '" ' . $selected . '>' . $i  .'</option>';
+    	endfor;
+    ?>
+    	P&aacute;gina &nbsp;
+    	<select onchange="cambiar(this);">
+       	<?php	echo $option_value; ?>
+    	</select>
+<?php
+		echo '&nbsp; de ' . $page->total . '&nbsp;&nbsp;';
+    	if($page->next){ ?>
+		<a href='<?php echo PUBLIC_PATH . "$url/$page->next/$id" ?>'><?php echo Html::img('datagrid/next.gif','Siguiente','class="next"');?></a>
+		<a href='<?php echo PUBLIC_PATH . "$url/$page->total/$id" ?>'><?php echo Html::img('datagrid/last.gif','Ultimo','class="last"');?></a>
+<?php	}else{ ?>
+			<?php echo Html::img('datagrid/next.d.gif','Siguiente','class="next"');?>
+			<?php echo Html::img('datagrid/last.d.gif','Ultimo','class="last"');?>
+<?php   } ?>
+    Total de Registros: <strong><?php echo $page->count; ?></strong>
+</div>
+<script>
+function cambiar(obj){
+	window.location.href=	"<?php echo PUBLIC_PATH  . $url . '/'  ?>" + obj.options[obj.selectedIndex].value + "/" + "<?php echo $id; ?>";
+}
+</script>

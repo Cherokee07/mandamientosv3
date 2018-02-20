@@ -1,0 +1,70 @@
+ <?php 	if($procede == "si"){ ?>
+ 
+				<h3 class="box-title">Datos Orden de Aprehensión</h3>      
+				<div class="box-body">                  
+                <div class="col-md-6">
+                    <label>Distrito : </label>
+                    <?php echo Form::dbSelect('distritos_id','distrito',array('distritos','listar'),'Seleccione','class="form-control select2" style="width: 100%"') ?>
+                </div>
+                <div class="col-md-6">
+                    <label>Municipio : </label>
+                    <?php echo Form::dbSelect('municipios_id','municipio',array('municipios','listar'),'Seleccione','class="form-control select2" style="width: 100%"') ?>
+                </div>
+                <div class="col-md-6">
+                    <label>Localidad : </label>
+                    <?php echo Form::dbSelect('localidades_id','localidad',array('localidades','listar'),'Seleccione','class="form-control select2" style="width: 100%"') ?>
+                </div><hr>
+                <div class="col-md-6">
+                    <label>Numero Averiguación :</label>
+                    <?php echo Form::number('numaver','class="form-control" onblur="convierte(this)"') ?>
+                </div>
+                <div class="col-md-6">
+                    <label>Agencia :</label>
+                    <?php echo Form::dbSelect('agencias_id','agencia',array('agencias','listar'),'Seleccione','class="form-control select2" style="width: 100%"') ?>               
+                </div>
+                <div class="col-md-6">
+                    <label>Año :</label>
+                    <?php echo Form::number('aniagen','class="form-control" onblur="convierte(this)"') ?>                  
+                </div>
+                <div class="col-md-6">
+                    <label>Turno :</label>
+                    <?php echo Form::number('turno','class="form-control" onblur="convierte(this)"') ?>                                    
+                </div>
+                <div class="col-md-6">
+                    <label>Fecha de Libramiento </label>
+                    <?php echo Form::date('feclib','class="form-control" onblur="convierte(this)"') ?> 
+                </div>
+                <div class="col-md-6">
+                    <label>Fecha de recibido</label>
+                    <?php echo Form::date('fecrec','class="form-control" onblur="convierte(this)"') ?>
+                </div>
+                <div class="col-md-6">
+                    <label>Oficio recibido :</label>
+                    <?php echo Form::number('ofirec','class="form-control" onblur="convierte(this)"') ?>                 
+                </div>
+                <div class="col-md-6">
+                    <label>Fecha entrega :</label>
+                    <?php echo Form::date('fecentpj','class="form-control" onblur="convierte(this)"') ?>                  
+                </div>
+                <div class="col-md-6">
+                    <label>Oficio recibido :</label>
+                    <?php echo Form::number('ofientpj','class="form-control" onblur="convierte(this)"') ?>                 
+                </div>
+                <div class="col-md-12">
+                    <label>Sintesis de los hechos :</label>
+                    <?php echo Form::textarea('sintesis','class="form-control" onblur="convierte(this)"') ?>                 
+                </div>
+                <div class="box-footer">
+                <?php echo Form::submit("Iniciar",'class= "btn btn-primary", id="btnAccion"')?>
+                <?php echo Form::close(); ?> 
+				</div>
+				
+ <?php } else{ ?>
+ 
+				<div class="box-footer">
+                    <?php echo Form::submit("Iniciar",'id="btnAccion" class= "btn btn-primary" onclick="valida();"' )?>
+                    <?php echo Form::close(); ?> 
+                </div>
+				<label>Por favor, rellene todos los campos.</label>
+ 
+ <?php }?>

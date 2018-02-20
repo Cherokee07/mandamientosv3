@@ -1,0 +1,67 @@
+<section class="content">
+	 <div class="box box-primary">
+	  <h3 class="box-title">Nueva Orden de Aprehensión</h3>
+          <form class="form-horizontal">
+          	 <div class="box-body">
+				        <div class="col-md-6">
+                  <label>Nombre Real :</label>
+                      <select class="form-control select2" style="width: 100%;">
+                      <option selected="selected">Nombre Real</option>
+                  
+                 </select>
+
+                 <label>Nombre :</label>
+                  <input type="text" class="form-control" placeholder="Enter ...">
+                  <label>Apellido Paterno :</label>
+                  <input type="text" class="form-control" placeholder="Enter ..." >
+                  <label>Apellido Materno :</label>
+                  <input type="text" class="form-control" placeholder="Enter ..." >
+                  <label>Alias :</label>
+                  <input type="text" class="form-control" placeholder="Enter ..." >
+              
+                </div>
+                <div class="col-lg-6">
+                	<label class="ingreso">Sexo : </label>
+                  <select class="form-control select2" style="width: 100%;">
+                  <option selected="selected">Desconocido</option>
+                  <option>Masculino </option>
+                  <option>Femenino</option>
+                </select>
+
+                     
+                	<label>Edad :</label>
+                  <input type="number" class="form-control" placeholder="Enter ..." >
+
+
+                      <label class="ingreso">Occiso : </label><?php echo Form::dbSelect('localidades_id','localidad',array('localidades','listar',Form::getFieldValue('municipios_id')),'seleccione','class="form-control select2" style="width: 100%"') ?> 
+                      <label class="ingreso">Autoridad : </label><?php echo Form::dbSelect('localidades_id','localidad',array('localidades','listar',Form::getFieldValue('municipios_id')),'seleccione','class="form-control select2" style="width: 100%"') ?>
+                      <label>Observaciones :</label>
+                  <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea> 
+
+             
+
+
+
+            </div>
+
+           <div class="col-md-6">
+        <div class=" col-md-10 ">
+            <button type="submit" class="btn btn-warning btn-flat" style="margin-right:10px;">GUARDAR</button>
+            <button type="reset" value="formulario" name="formulario" class="btn btn-success btn-flat">CERRAR</button>
+        </div> 
+      </div> 
+                     
+                     
+                     
+                     
+                     
+
+
+
+
+
+          	 </div>
+
+          </form>
+	 </div>
+</section>

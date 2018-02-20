@@ -1,0 +1,15 @@
+<?php echo Form::dbSelect('municipios_id','municipio',array('municipios','listar', $distritos_id),'Seleccione','class="form-control" style="width: 100%"') ?>
+              
+<script type='text/javascript'>
+  $(document).on('change', "#municipios_id", function () {
+    var municipios_id = $('#municipios_id').val();
+      $.ajax({
+        type: "POST",
+        url: "<?php echo PUBLIC_PATH . 'ordenes/getLocalidades/'; ?>",
+        data: "municipios_id=" + municipios_id,
+          success: function (html) {
+            $("#div_localidades").html(html);
+          }
+       });
+ });
+</script>
