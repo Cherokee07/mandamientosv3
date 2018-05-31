@@ -1,0 +1,85 @@
+<?= Tag::js('jquery/jquery.min'); ?>
+
+<section class="content">
+      <div class="box box-primary">
+              <h3 class="box-title">Datos Orden de Aprehensión</h3>      
+             <div class="box-body">                  
+                <div class="col-md-12 form-group">
+                    <label class="control-label col-md-2" for="distritos_id">Distrito : </label>
+                    <div class="col-md-10">
+                    <?php echo Form::dbSelect('distritos_id','distrito',array('distritos','listar'),'Seleccione','class="form-control select2" style="width: 100%"') ?>
+                </div>
+                </div>
+                <div class="col-md-12 form-group" >
+                    <label class="control-label col-md-2" for="municipios_id">Municipio : </label>
+                    <div class="col-md-10" id='div_municipios'></div>
+                </div>
+                <div class="col-md-12 form-group">
+                    <label class="control-label col-md-2" for="localidades_id">Localidad : </label>
+                    <div class="col-md-10" id='div_localidades'></div>
+                </div><hr>
+                <div class="col-md-2 form-group">   
+                    <label class="text-blue text-center">Averiguacion :</label>
+                    <?php echo Form::number('numaver','class="form-control" onblur="convierte(this)"') ?>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label class="text-blue text-center">Agencia :</label>
+                    <?php echo Form::dbSelect('agencias_id','agencia',array('agencias','listar'),'Seleccione','class="form-control select2" style="width: 100%"') ?>               
+                </div>
+                <div class="col-md-2 form-group">
+                    <label class="text-blue text-center">Año :</label>
+                    <?php echo Form::number('aniagen','class="form-control" onblur="convierte(this)"') ?>                  
+                </div>
+                <div class="col-md-2 form-group">
+                    <label class="text-blue text-center">Turno :</label>
+                    <?php echo Form::number('turno','class="form-control" onblur="convierte(this)"') ?>                                    
+                </div>
+                <div class="col-md-12 form-group">
+                    <label >Fecha de Libramiento </label>
+                    <?php echo Form::date('feclib','class="form-control" onblur="convierte(this)"') ?> 
+                </div>
+                <div class="col-md-6 form-group">
+                    <label >Fecha de recibido</label>
+                    <?php echo Form::date('fecrec','class="form-control" onblur="convierte(this)"') ?>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label>Oficio recibido :</label>
+                    <?php echo Form::number('ofirec','class="form-control" onblur="convierte(this)"') ?>                 
+                </div>
+                <div class="col-md-6 form-group">
+                    <label>Fecha entrega :</label>
+                    <?php echo Form::date('fecentpj','class="form-control" onblur="convierte(this)"') ?>                  
+                </div>
+                <div class="col-md-6 form-group">
+                    <label>Oficio recibido :</label>
+                    <?php echo Form::number('ofientpj','class="form-control" onblur="convierte(this)"') ?>                 
+                </div>
+                <div class="col-md-12 form-group">
+                    <label>Sintesis de los hechos :</label>
+                    <?php echo Form::textarea('sintesis','class="form-control" onblur="convierte(this)"') ?>                 
+                </div>
+                <div class="row form-group" >
+                    <div class="col-md-2 col-xs-12 col-sm-2 col-md-offset-5">
+                    <button type="submit"  name="boton_buscar" id="boton_buscar" value="enviado" class="btn btn-success btn-flat">Buscar</button>
+                </div>
+                    <div class="col-md-2 col-xs-12 col-sm-2 col-lg-2">
+                    <button class="btn btn-warning btn-flat" type="reset">Limpiar</button>
+        </div>
+      </div>
+    <?php echo Form::close(); ?>
+             </div>                   
+ </section>
+
+ <script type='text/javascript'>
+  $(document).on('change', "#distritos_id", function () {
+    var distritos_id = $('#distritos_id').val();
+     $.ajax({
+       type: "POST",
+       url: "<?php echo PUBLIC_PATH . 'orden/getMunicipios/'; ?>",
+       data: "distritos_id=" + distritos_id,
+       success: function (html) {
+         $("#div_municipios").html(html);
+       }
+    });
+  });
+</script>

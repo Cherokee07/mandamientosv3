@@ -1,0 +1,403 @@
+<?php header('Content-Type: text/html; charset=utf-8'); ?> 
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html>
+<head>
+ 
+ <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+
+  <title>EXPEDIENTES</title>
+<!-- Tell the browser to be responsive to screen width -->
+<!-- <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- Tell the browser to be responsive to screen width -->
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Type" content="text/javascript; charset=utf-8" />
+<meta name="base_url" content="<?php echo PUBLIC_PATH ?>">
+
+<!--Archivos css-->
+<link href="<?php echo PUBLIC_PATH ?>css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen">
+<link href="<?php echo PUBLIC_PATH ?>css/_all-skins.min.css" rel="stylesheet" type="text/css" media="screen">
+<link href="<?php echo PUBLIC_PATH ?>css/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" media="screen">
+<link href="<?php echo PUBLIC_PATH ?>css/AdminLTE.min.css" rel="stylesheet" type="text/css" media="screen">
+<link href="<?php echo PUBLIC_PATH ?>css/ionicons.min.css" rel="stylesheet" type="text/css" media="screen">
+<link href="<?php echo PUBLIC_PATH ?>css/font-awesome.min.css" rel="stylesheet" type="text/css" media="screen">
+<link href="<?php echo PUBLIC_PATH ?>css/custom.css" rel="stylesheet" type="text/css" media="screen">
+<link href="<?php echo PUBLIC_PATH ?>css/plugins/jquery.datetimepicker.css" rel="stylesheet" type="text/css" media="screen">
+<link href="<?php echo PUBLIC_PATH ?>css/plugins/easy-autocomplete.css" rel="stylesheet" type="text/css" media="screen">
+<link href="<?php echo PUBLIC_PATH ?>css/plugins/bootstrap-select.min.css" rel="stylesheet" type="text/css" media="screen">
+<link href="<?php echo PUBLIC_PATH ?>css/plugins/bootstrap-tagsinput.css" rel="stylesheet" type="text/css" media="screen">
+
+<?php echo Tag::js('plugins/jquery-2.2.3.min'); ?>
+
+<body class="hold-transition skin-blue sidebar-mini " >
+<div class="wrapper" >
+
+  <!-- Main Header -->
+  <header class="main-header" >
+
+    <!-- Logo -->
+    <a href="<?php echo PUBLIC_PATH ?>" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><i class="fa fa-home"></i></span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><i class="fa fa-home"></i>INICIO</span>
+    </a>
+
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-static-top" role="navigation">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+      <!-- Navbar Right Menu -->
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- Messages: style can be found in dropdown.less-->
+          <!-- User Account Menu -->
+          <li class="dropdown user user-menu">
+            <!-- Menu Toggle Button -->
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <!-- The user image in the navbar-->
+               <?php echo Html::img('logofondo.jpg','una imagen', array('class'=>'user-image'))?>
+              <!-- hidden-xs hides the username on small devices so only the image appears. -->
+              <span class="hidden-xs"><?php echo Session::get('nombre').' '.Session::get('paterno').' '.Session::get('materno')?></span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- The user image in the menu -->
+              <li class="user-header">
+              <?php echo Html::img('logofondo.jpg','una imagen', array('class'=>'img-circle'))?>
+              <p><?php echo Session::get('nombre').' '.Session::get('paterno').' '.Session::get('materno')?></p>
+              </li>
+           
+             
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="<?php echo PUBLIC_PATH ?>usuarios/cambiarclave/<?php echo Cifrar::todo(Session::get('id')) ?>" class="btn btn-default btn-flat btn-success">Cambiar Clave</a>
+                </div>
+                <div class="pull-right">
+                  <a href="<?php echo PUBLIC_PATH ?>principal/salir" class="btn btn-default btn-flat btn-warning">Cerrar Sesión</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar"  >
+
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <?php echo  Html::img('logofondo.jpg','una imagen', array('class'=>'img-circle'))?>
+        </div>
+        <div class="pull-left info">
+          <p><?php echo Session::get('titulo').' '.Session::get('nombre') ?></p>
+          <!-- Status -->
+         
+        </div>
+      </div>
+
+      <!-- search form (Optional) 
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search...">
+              <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>
+      /.search form -->
+
+      <!-- Sidebar Menu -->
+      <ul class="sidebar-menu">
+        <li class="header"></li>
+        <li class="treeview">
+          <a href="#"><i class="fa fa-folder"></i> <span>CARPETAS</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="active"><a href="<?php echo PUBLIC_PATH ?>expedientestemp/iniciar/2/1"><i class="fa fa-circle-o text-aqua"></i> <span>CREAR CARPETA </span></a></li>
+            <!--Url= expedientes/formBusqueda/tipo de carpeta/opcion de busqueda -->
+            <li class="active"><a href="<?php echo PUBLIC_PATH ?>expedientes/formBusqueda/2/1"><i class="fa fa-circle-o text-aqua"></i> <span>MODIFICAR CARPETA</span></a></li>
+            <li class="active"><a href="<?php echo PUBLIC_PATH ?>expedientestemp/iniciar/2/2"><i class="fa fa-circle-o text-aqua"></i> <span>CARPETA RECIBIDA</span></a></li>
+            <li class="active"><a href="<?php echo PUBLIC_PATH ?>expedientestemp/iniciar/2/3"><i class="fa fa-circle-o text-aqua"></i> <span>CARPETA REINGRESADA</span></a></li>
+            <li>
+              <a href="#"><i class="fa fa-circle-o text-aqua"></i> ENVIAR CARPETA
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li class="active"><a href="<?php echo PUBLIC_PATH ?>expedientes/formBusqueda/2/4"><i class="fa fa-circle-o text-aqua"></i> <span>ENVIO NORMAL</span></a></li>
+                <li class="active"><a href="<?php echo PUBLIC_PATH ?>expedientes/formBusqueda/2/17"><i class="fa fa-circle-o text-aqua"></i> <span>PARA SEPARAR</span></a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#"><i class="fa fa-circle-o text-aqua"></i> RECIBIR CARPETA
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li class="active"><a href="<?php echo PUBLIC_PATH ?>expedientes/formBusqueda/2/5"><i class="fa fa-circle-o text-aqua"></i> <span>RECIBIR</span></a></li>
+                <li class="active"><a href="<?php echo PUBLIC_PATH ?>expedientes/formBusqueda/2/16"><i class="fa fa-circle-o text-aqua"></i> <span>CONSERVANDO SIGLAS</span></a></li>
+                <li class="active"><a href="<?php echo PUBLIC_PATH ?>expedientes/formBusqueda/2/2"><i class="fa fa-circle-o text-aqua"></i> <span>PARA ACUMULAR</span></a></li>
+                <li class="active"><a href="<?php echo PUBLIC_PATH ?>expedientes/formBusqueda/2/18"><i class="fa fa-circle-o text-aqua"></i> <span>PARA SEPARAR</span></a></li>
+              </ul>
+            </li>
+            <li class="active"><a href="<?php echo PUBLIC_PATH ?>expedientes/formBusqueda/2/9"><i class="fa fa-circle-o text-aqua"></i> <span>ASIGNAR N° CONTROL</span></a></li>
+            <?php if(Session::has('folio') && Session::get('folio')=="S"): ?>
+              <li class="active"><a href="<?php echo PUBLIC_PATH ?>expedientes/formBusqueda/2/3"><i class="fa fa-circle-o text-aqua"></i> <span>ASIGNAR FOLIO</span></a></li>
+            <?php endif ?>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#"><i class="fa fa-folder text-teal"></i> <span>AVERIGUACIONES</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="active"><a href="<?php echo PUBLIC_PATH ?>expedientestemp/iniciar/1/1"><i class="fa fa-circle-o text-aqua"></i> <span>CREAR AVERIGUACIÓN </span></a></li>
+            <!--Url= expedientes/formBusqueda/tipo de carpeta/opcion de busqueda -->
+            <li class="active"><a href="<?php echo PUBLIC_PATH ?>expedientes/formBusqueda/1/1"><i class="fa fa-circle-o text-aqua"></i> <span>MODIFICAR AVERIGUACIÓN</span></a></li>
+            <li class="active"><a href="<?php echo PUBLIC_PATH ?>expedientestemp/iniciar/1/2"><i class="fa fa-circle-o text-aqua"></i> <span>AVERIGUACIÓN RECIBIDA </span></a></li>
+            <li class="active"><a href="<?php echo PUBLIC_PATH ?>expedientestemp/iniciar/1/3"><i class="fa fa-circle-o text-aqua"></i> <span>AVERIGUACIÓN REINGRESADA</span></a></li>
+            <li>
+              <a href="#"><i class="fa fa-circle-o text-aqua"></i> ENVIAR AVERIGUACION
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li class="active"><a href="<?php echo PUBLIC_PATH ?>expedientes/formBusqueda/1/4"><i class="fa fa-circle-o text-aqua"></i> <span>ENVIO NORMAL</span></a></li>
+                <li class="active"><a href="<?php echo PUBLIC_PATH ?>expedientes/formBusqueda/1/17"><i class="fa fa-circle-o text-aqua"></i> <span>PARA SEPARAR</span></a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#"><i class="fa fa-circle-o text-aqua"></i> RECIBIR AVERIGUACIÓN
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li class="active"><a href="<?php echo PUBLIC_PATH ?>expedientes/formBusqueda/1/5"><i class="fa fa-circle-o text-aqua"></i> <span>RECIBIR</span></a></li>
+                <li class="active"><a href="<?php echo PUBLIC_PATH ?>expedientes/formBusqueda/1/16"><i class="fa fa-circle-o text-aqua"></i> <span>CONSERVANDO SIGLAS</span></a></li>
+                <li class="active"><a href="<?php echo PUBLIC_PATH ?>expedientes/formBusqueda/1/2"><i class="fa fa-circle-o text-aqua"></i> <span>PARA ACUMULAR</span></a></li>
+                <li class="active"><a href="<?php echo PUBLIC_PATH ?>expedientes/formBusqueda/1/18"><i class="fa fa-circle-o text-aqua"></i> <span>PARA SEPARAR</span></a></li>
+              </ul>
+            </li>
+            <li class="active"><a href="<?php echo PUBLIC_PATH ?>expedientes/formBusqueda/1/9"><i class="fa fa-circle-o text-aqua"></i> <span>ASIGNAR N° CONTROL</span></a></li>
+            <?php if(Session::has('folio') && Session::get('folio')=="S"): ?>
+              <li class="active"><a href="<?php echo PUBLIC_PATH ?>expedientes/formBusqueda/1/3"><i class="fa fa-circle-o text-aqua"></i> <span>ASIGNAR FOLIO</span></a></li>
+            <?php endif ?>
+          </ul>
+        </li>
+
+        <?php if ((Session::has('consulta')) && ((Session::get('consulta')=='S') || (Session::get('consulta')=='O') || (Session::get('consulta')=='I'))):?>
+        <li class="treeview">
+          <a href="#"><i class="fa fa-search text-blue"></i> <span>CONSULTAS</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="active"><a href="<?php echo PUBLIC_PATH ?>expedientes/formBusqueda/0/15"><i class="fa fa-circle-o text-aqua"></i> <span>EXPEDIENTES</span></a></li>
+            <li class="active"><a href="<?php echo PUBLIC_PATH ?>ofendidos/consultaofendidos"><i class="fa fa-circle-o text-aqua"></i> <span>VICTIMAS</span></a></li>
+            <?php if((Session::has('verimputados')) && ((Session::get('verimputados')=='S'))): ?>
+              <li class="active"><a href="<?php echo PUBLIC_PATH ?>indiciados/consultaindiciados"><i class="fa fa-circle-o text-aqua"></i> <span>IMPUTADOS</span></a></li>
+              <li class="active"><a href="<?php echo PUBLIC_PATH ?>indiciados/consultaambos"><i class="fa fa-circle-o text-aqua"></i> <span>VICTIMAS E IMPUTADOS</span></a></li>
+            <?php endif ?>
+            <li class="active"><a href="<?php echo PUBLIC_PATH ?>vehiculos/consultavehiculos"><i class="fa fa-circle-o text-aqua"></i> <span>VEHICULOS</span></a></li>
+            <li class="active"><a href="<?php echo PUBLIC_PATH ?>denunciantes/consultadenunciantes"><i class="fa fa-circle-o text-aqua"></i> <span>DENUNCIANTES</span></a></li>
+             <li class="active"><a href="<?php echo PUBLIC_PATH ?>ofendidos/consultaresponsables"><i class="fa fa-circle-o text-aqua"></i> <span>RESPONSABLES</span></a></li>
+          </ul>
+        </li>
+      <?php endif ?>
+      <?php if ((Session::has('accesodatum')) && (Session::get('accesodatum')=='S')):?>
+          <li class="treeview">
+            <a href="#"><i class="fa fa-search text-purple"></i> <span>CONSULTAS EXP. Y DATUM</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="active"><a href="<?php echo PUBLIC_PATH ?>apgral/consultaexpediente"><i class="fa fa-circle-o text-aqua"></i> <span>EXPEDIENTES</span></a></li>
+              <li class="active"><a href="<?php echo PUBLIC_PATH ?>apgral/buscafolio"><i class="fa fa-circle-o text-aqua"></i> <span>BUSCAR POR FOLIO</span></a></li>
+              <li class="active"><a href="<?php echo PUBLIC_PATH ?>apofen/consultavictima"><i class="fa fa-circle-o text-aqua"></i> <span>VICTIMAS</span></a></li>
+              <?php if((Session::has('verimputados')) && ((Session::get('verimputados')=='S'))): ?>
+                <li class="active"><a href="<?php echo PUBLIC_PATH ?>apindi/consultaindiciado"><i class="fa fa-circle-o text-aqua"></i> <span>IMPUTADOS</span></a></li>
+                <li class="active"><a href="<?php echo PUBLIC_PATH ?>apofen/consultaambos"><i class="fa fa-circle-o text-aqua"></i> <span>VICTIMAS E IMPUTADOS</span></a></li>
+              <?php endif ?>
+              <li class="active"><a href="<?php echo PUBLIC_PATH ?>apgautos/consultavehiculo"><i class="fa fa-circle-o text-aqua"></i> <span>VEHICULOS</span></a></li>
+              <li class="active"><a href="<?php echo PUBLIC_PATH ?>apofen/buscadomicilio"><i class="fa fa-circle-o text-aqua"></i> <span>CON DOMICILIO</span></a></li>
+            </ul>
+          </li>
+        <?php endif ?>
+
+        <?php if(Session::get('reportes')=='S') :?>
+          <li class="treeview">
+            <a href=""><i class="fa fa-file text-orange"></i> <span>REPORTES</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <?php if(Session::get('reportesespeciales')=='S') :?>                   
+                <li><a href="<?php echo PUBLIC_PATH ?>reportes/reporteEspecial1"><i class="fa  fa-file-text text-primary"></i> <span>Consulta perzonalizable</span></a></li>                  
+              <?php endif ?>
+              <li><a href="<?php echo PUBLIC_PATH ?>reportes/capturados"><i class="fa fa-file-text text-primary"></i> <span>Capturados</span></a></li>             
+              <li><a href="<?php echo PUBLIC_PATH ?>reportes/oficialia"><i class="fa fa-file-text text-primary"></i> <span>Oficialia</span></a></li>
+              <li><a href="<?php echo PUBLIC_PATH ?>reportes/vehiculos"><i class="fa fa-file-text text-primary"></i> <span>Vehiculos</span></a></li>
+              <li><a href="<?php echo PUBLIC_PATH ?>reportes/capturadosres"><i class="fa fa-file-text text-primary"></i> <span>Responsables</span></a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="<?php echo PUBLIC_PATH ?>georeferencia/iniciar">
+              <i class="fa fa-map-marker" style="color: #f9a9f2!important"></i> <span>GEOREFERENCIA</span>
+            </a>
+          </li>
+        <?php endif ?>
+
+          
+
+        <!--Aqui inician los modulos exclusivos-->
+        <?php if(Session::has('generarnumunico') && Session::get('generarnumunico')=='S'): ?>
+          <li>
+            <a href="<?php echo PUBLIC_PATH ?>expedientes/generarnumunico">
+              <i class="fa fa-sort-numeric-asc text-maroon"></i> <span>GENERAR NÚMERO ÚNICO</span>
+            </a>
+          </li>
+        <?php endif ?>
+        <?php if(Session::has('cambios') && ( Session::get('cambios')=='T' || Session::get('cambios')=='I' || Session::get('cambios')=='C' || Session::get('cambios')=='M' )): ?>
+          <li class="treeview">
+            <a href=""><i class="fa fa-random" style="color: #c2da07!important"></i> <span>MODIFICACIONES</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <?php if(Session::get('cambios')=='T' || Session::get('cambios')=='M'): ?>
+                <li><a href="<?php echo PUBLIC_PATH ?>expedientes/formBusqueda/0/6"><i class="fa fa-circle-o text-aqua"></i> <span>CAMBIO DE MESA</span></a></li>
+              <?php endif ?>
+              <?php if(Session::get('cambios')=='T' || Session::get('cambios')=='C'): ?>
+                <li><a href="<?php echo PUBLIC_PATH ?>expedientes/formBusqueda/0/7"><i class="fa fa-circle-o text-aqua"></i> <span>CAMBIO DE NUMERO  O FECHA</span></a></li>
+              <?php endif ?>
+              <?php if(Session::get('cambios')=='T' || Session::get('cambios')=='I'): ?>
+                <li><a href="<?php echo PUBLIC_PATH ?>expedientes/formBusqueda/0/8"><i class="fa fa-circle-o text-aqua"></i> <span>CAMBIO DE TIPO DE INICIO</span></a></li>
+              <?php endif ?>
+              <?php if(Session::get('cambios')=='T'): ?>  
+                <li><a href="<?php echo PUBLIC_PATH ?>expedientes/formBusqueda/0/13"><i class="fa fa-circle-o text-aqua"></i> <span>CANCELAR ENVIO</span></a></li>
+              <?php endif ?>
+            </ul>
+          </li>
+        <?php endif ?>
+        <?php if(Session::get('niveles_id')==1): ?>
+          <li>
+            <a href="<?php echo PUBLIC_PATH ?>usuarios/crear">
+              <i class="fa fa-group text-green"></i> <span>USUARIOS</span>
+            </a>
+          </li>
+          <li class="treeview">
+            <a href=""><i class="fa fa-gears text-red"></i> <span>ADMINISTRACIÓN</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="<?php echo PUBLIC_PATH ?>subprocuradurias/listarsub"><i class="fa fa-circle-o text-aqua"></i> <span>SUBPROCURADURIAS</span></a></li>
+              <li><a href="<?php echo PUBLIC_PATH ?>agencias/listaagencias"><i class="fa fa-circle-o text-aqua"></i> <span>AGENCIAS</span></a></li>
+              <li><a href="<?php echo PUBLIC_PATH ?>tipomesas/listatipos"><i class="fa fa-circle-o text-aqua"></i> <span>TIPO DE MESA</span></a></li>
+              <li><a href="<?php echo PUBLIC_PATH ?>mesas/listamesas"><i class="fa fa-circle-o text-aqua"></i> <span>MESAS</span></a></li>
+              <li><a href="<?php echo PUBLIC_PATH ?>gpoagencias/listagrupos"><i class="fa fa-circle-o text-aqua"></i> <span>GRUPO DE AGENCIAS</span></a></li>
+              <li><a href="<?php echo PUBLIC_PATH ?>usugrupos/listagrupos"><i class="fa fa-circle-o text-aqua"></i> <span>GRUPO DE USUARIOS</span></a></li>
+            </ul>
+          </li>
+        <?php endif ?>
+      </ul>
+      <!-- /.sidebar-menu -->
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+  
+
+    <!-- Main content -->
+    <section class="content">
+
+     <?php View::content() ?>
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Main Footer -->
+  <footer class="main-footer">
+    <!-- To the right -->
+    <div class="pull-right hidden-xs">
+    
+    </div>
+    <!-- Default to the left -->
+    <strong>Fiscalía general del estado de Oaxaca</strong> 
+  </footer>
+  <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED JS SCRIPTS -->
+
+
+<?php
+
+echo Tag::js('plugins/bootstrap.min');
+echo Tag::js('plugins/fastclick');
+echo Tag::js('plugins/app.min');
+echo Tag::js('plugins/jquery.sparkline.min');
+echo Tag::js('plugins/jquery-jvectormap-1.2.2.min');
+echo Tag::js('plugins/jquery-jvectormap-world-mill-en');
+echo Tag::js('plugins/jquery.slimscroll.min');
+echo Tag::js('plugins/Chart.min');
+echo Tag::js('plugins/demo');
+echo Tag::js('plugins/sweetalert2');
+echo Tag::js('plugins/datetimepicker-master/jquery.datetimepicker.full.min');
+echo Tag::js('plugins/EasyAutocomplete/jquery.easy-autocomplete.min');
+echo Tag::js('plugins/validator');
+echo Tag::js('plugins/bootstrap-select.min');
+echo Tag::js('plugins/defaults-es_ES');
+echo Tag::js('formularios/formularios'); 
+echo Tag::js('plugins/bootstrap-tagsinput.min'); 
+
+?>
+
+<script type="text/javascript">
+$(function(){
+  setTimeout(function() {
+    $( "div.flash" ).not( ".error" ).fadeOut(1500);
+  },2000); 
+});
+
+</script>
+</body>
+</html>

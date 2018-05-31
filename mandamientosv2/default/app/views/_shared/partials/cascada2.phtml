@@ -1,0 +1,10 @@
+<script type="text/javascript">
+//var nombre = "<?php echo $parametros['nombre'] ?>";
+$("<?php echo "#".$parametros['nombre'] ?>").change(function(){
+alert('aca');
+var datos_id=$("<?php echo "#".$parametros['nombre'] ?>").val();
+url="<?php echo PUBLIC_PATH.$parametros['modelo'].'/mostrar/'; ?>" + datos_id;
+alert(url):
+$("<?php echo "#div_".$parametros['nomdiv'] ?>").load(url);
+});
+</script>

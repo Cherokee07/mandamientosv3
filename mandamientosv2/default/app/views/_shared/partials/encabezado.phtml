@@ -1,0 +1,7 @@
+<?php View::content(); ?>
+<div class="formato">
+  <h2><?php echo 'Imprimir '.$datos['singular']; ?></h2>
+  <?php echo Form::open($datos['modelo'].'/reporte/'.@$datos['opcion'],'post','id="formulario"') ?>  
+  
+  <fieldset>
+  <legend>Datos <?php echo $datos['leyenda'].' '.$datos['singular'];?></legend>

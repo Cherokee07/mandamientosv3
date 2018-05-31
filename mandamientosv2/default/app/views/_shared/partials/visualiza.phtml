@@ -1,0 +1,7 @@
+<script type="text/javascript">
+$("<?php echo "#".$datos['modelo']."_oficiooa" ?>").change(function(){
+var datos_id=$("<?php echo "#".$datos['modelo']."_oficiooa" ?>").val();
+url="<?php echo PUBLIC_PATH.$datos['modelo'].'/visualizar/'; ?>" + datos_id;
+$("<?php echo "#div_oficio" ?>").load(url);
+});
+</script>

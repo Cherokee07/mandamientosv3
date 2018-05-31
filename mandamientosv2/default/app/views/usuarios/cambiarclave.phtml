@@ -1,0 +1,38 @@
+<?php View::content(); ?>
+<div class="row">
+    <div class="col-md-12">
+      <div class="box box-success">
+        <div class="box-header with-border">
+          <div class="col-md-12">
+            <h2>Cambiar Password</h2>
+          </div>
+        </div>
+        <div class="box-body">
+          <div class="col-md-6 col-md-offset-3">
+            <h3> <?php echo $usuario->getNombre() ?></h3>
+              <?php echo Form::open('usuarios/cambiarclave/'.Cifrar::todo($usuario->id),'post','id="formulario"') ?> 
+                <div class="form-group">
+                  <label class="control-label">Password</label>
+                  <input type="password" name="datos[clave]" class="form-control" data-minlength="5" data-error="Minimo 5 caracteres" required id="clave" >
+                  <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group">
+                  <label  class="control-label">Repite Password</label>
+                  <input type="password" name="datos[repite]" class="form-control" data-match="#clave" data-match-error="No coinciden las claves" required="">
+                   <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-flat btn-success pull-right">Cambiar</button>
+                </div>
+              <?php echo Form::close() ?>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<script>
+  $(function(){
+    $('#formulario').validator();
+  })
+</script>

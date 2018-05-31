@@ -1,0 +1,439 @@
+<link href="<?php echo PUBLIC_PATH ?>css/select2/select2.min.css" rel="stylesheet" type="text/css" media="screen">
+<style type="text/css" media="screen">
+  .select2-container--default 
+  .select2-selection--multiple 
+  .select2-selection__choice{
+    background-color: #878787;
+  }
+</style>
+<?php View::content(); ?>
+
+<?php echo Form::open("usuarios/editar/".Cifrar::todo($usuario->id),'POST','class=" form-horizontal"'); ?>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="box box-primary">
+      <div class="box-header"><h3>Edición del usuario</h3></div>
+      <div class="box-body">
+        <div class="col-lg-6 col-md-6">
+          <div class="form-group">
+            <label class="col-lg-3 col-md-3">Titulo</label>
+            <div class="col-lg-5 col-md-5">
+              <input type="text" name="usuarios[level]" id="usuarios_titulo" value="<?php echo $usuario->titulo  ?>" class="form-control mayuscula" placeholder="Titulo" required="">
+              <div class="help-block with-errors"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 col-md-3">Nombre real</label>
+            <div class="col-lg-8 col-md-8">
+              <input type="text" name="usuarios[name]" value="<?php echo $usuario->nombre ?>" class="form-control mayuscula" placeholder="Nombre real" required="">
+            </div>
+            <div class="help-block with-errors"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 col-md-3">A. paterno</label>
+            <div class="col-lg-8 col-md-8">
+              <input type="text" name="usuarios[apepat]" value="<?php echo $usuario->paterno ?>" class="form-control mayuscula" placeholder="A. paterno">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 col-md-3">A. materno</label>
+            <div class="col-lg-8 col-md-8">
+              <input type="text" name="usuarios[apemat]" value="<?php echo $usuario->materno ?>" class="form-control mayuscula" placeholder="A. materno">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 col-md-3">Jefe</label>
+            <div class="col-lg-8 col-md-8">
+              <?php echo Form::dbSelect('usuarios.jefe','nombre',array('usuarios','listar'),'SELECCIONE','class="form-control"',$usuario->jefes_id); ?>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+          <div class="form-group">
+            <label class="col-lg-3 col-md-3">Nombre de usuario</label>
+            <div class="col-lg-9 col-md-9">
+              <input type="text" name="login" value="<?php echo $usuario->login ?>" id="usuarios_login" class="form-control" placeholder="Usuario" required="" data-remote="<?php echo PUBLIC_PATH ?>usuarios/getExistente" delay="10">
+            </div>
+            <div class="help-block with-errors"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 col-md-3">Contraseña</label>
+            <div class="col-lg-9 col-md-9">
+              <input type="password" name="usuarios[pw]" id="clave" data-minlength="5" class="form-control" placeholder="Contraseña" required="" data-error="Minimo 5 caracteres" disabled="" value="123">
+            </div>
+            <div class="help-block with-errors"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 col-md-3">Repite contr.</label>
+            <div class="col-lg-9 col-md-9">
+              <input type="password" name="usuarios[repite]" class="form-control"  placeholder="Repetir la contraseña"  data-match="#clave" data-match-error="Ups! No coinciden las contraseñas" required="" disabled="" value="123">
+            </div>
+            <div class="help-block with-errors"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 col-md-3">Activo</label>
+            <div class="col-lg-9 col-md-9">
+              <select name="usuarios[activo]" class="form-control">
+                <option value="S" <?php echo $usuario->activo=="S"?"selected":'' ?>>Si</option>
+                <option value="N" <?php echo $usuario->activo=="N"?"selected":'' ?>>No</option>
+              </select>
+            </div>
+            <div class="help-block with-errors"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 col-md-3">Nivel</label>
+            <div class="col-lg-9 col-md-9">
+               <?php echo Form::dbSelect('usuarios.nivel','nivel',array('niveles','listar'),'SELECCIONE','class="form-control" required',$usuario->niveles_id); ?>
+            </div>
+            <div class="help-block with-errors"></div>
+          </div>
+        </div>
+        <div class="col-md-12 form-group">
+        	<label class="col-lg-2 col-md-2">Subprocuraduria</label>
+    			<div class="col-lg-10 col-md-7">
+    				<?php echo Form::dbSelect('usuarios.subp','subprocuraduria',array('subprocuradurias','find'),'SELECCIONE','class="form-control" required',$usuario->subprocuradurias_id); ?>
+    			</div>
+    			<div class="help-block with-errors"></div>
+        </div>
+        <div class="col-md-12 form-group">
+          <label class="col-lg-2 col-md-2">Observaciones</label>
+          <div class="col-lg-10 col-md-7">
+            <input type="text" name="usuarios[obs]" class="mayuscula form-control" value="<?php echo $usuario->observaciones ?>">
+          </div>
+        </div>
+      </div>
+      <div class="box-footer">
+      	<div class="col-lg-3 col-md-3 pull-right">
+      		<button type="reset" class="btn btn-warning btn-flat" style="margin-right:10px;">Limpiar</button>
+        	<button type="submit" value="formulario" name="formulario" class="btn btn-success btn-flat">Registrar</button>
+        </div> 
+      </div>
+    </div>     
+  </div>
+</div>
+<?php echo Form::close(); ?>
+
+<?php echo Form::open("usuarios/setPermisos/".Cifrar::todo($usuario->id),'POST','class=" form-permisos"'); ?>
+<div class="row">
+  <div class="col-lg-12 col-md-12">
+    <div class="box box-info" >
+      <div class="box-header">
+        <h3 class="text-orange">Permisos dentro del sistema</h3>
+      </div>
+      <div class="box-body">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <div class="form-group col-md-3">
+              <label class="control-label">Acceso a</label>
+                <select name="permisos[1]" class="form-control" id="acceso">
+                  <option value="N" <?php echo $usuario->getPermisonly(1)?($usuario->getPermisonly(1)->opciones=="N"?'selected':''):'' ?>>Solo lo que captura</option>
+                  <option value="S" <?php echo $usuario->getPermisonly(1)?($usuario->getPermisonly(1)->opciones=="S"?'selected':''):'' ?>>Todo</option>
+                  <option value="R" <?php echo $usuario->getPermisonly(1)?($usuario->getPermisonly(1)->opciones=="R"?'selected':''):'' ?>>Subprocuradurias</option>
+                  <option value="A" <?php echo $usuario->getPermisonly(1)?($usuario->getPermisonly(1)->opciones=="A"?'selected':''):'' ?>>Agencias</option>
+                  <option value="M" <?php echo $usuario->getPermisonly(1)?($usuario->getPermisonly(1)->opciones=="M"?'selected':''):'' ?>>Mesas</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+	            <label class="control-label">Captura</label>
+	            <select name="permisos[2]" class="form-control">
+			      <option value="N">No</option>
+			      <option value="S" <?php echo $usuario->getPermisonly(2)?($usuario->getPermisonly(2)->opciones=="S"?'selected':''):'' ?>>Si</option>
+			    </select>
+            </div>                                                
+            <div class="form-group col-md-2">
+              <label class="control-label">Consultas</label>
+                <select name="permisos[3]" class="form-control">
+                	<option value="N">No</option>
+                  	<option value="S" <?php echo $usuario->getPermisonly(3)?($usuario->getPermisonly(3)->opciones=="S"?'selected':''):'' ?>>Si</option>
+                </select>
+            </div> 
+            <div class="form-group col-md-2">
+              <label class="control-label">Oficio</label>
+                <select name="permisos[4]" class="form-control">
+                	<option value="N">No</option>
+                  	<option value="S" <?php echo $usuario->getPermisonly(4)?($usuario->getPermisonly(4)->opciones=="S"?'selected':''):'' ?>>Si</option>
+                </select>
+            </div> 
+            <div class="form-group col-md-2">
+              <label class="control-label">Celular</label>
+                <select name="permisos[5]" class="form-control">
+                	<option value="N">No</option>
+                  	<option value="S" <?php echo $usuario->getPermisonly(5)?($usuario->getPermisonly(5)->opciones=="S"?'selected':''):'' ?>>Si</option>
+                </select>
+            </div> 
+            <div class="form-group col-md-2">
+              <label class="control-label">Generar Folio</label>
+                <select name="permisos[6]" class="form-control">
+                	<option value="N">No</option>
+                  	<option value="S" <?php echo $usuario->getPermisonly(6)?($usuario->getPermisonly(6)->opciones=="S"?'selected':''):'' ?>>Si</option>
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+              <label class="control-label">Cambios</label>
+                <select  name="permisos[7]" class="form-control" >
+                	<option value="T" <?php echo $usuario->getPermisonly(7)?($usuario->getPermisonly(7)->opciones=="T"?'selected':''):'' ?>>Todos</option>
+                	<option value="M" <?php echo $usuario->getPermisonly(7)?($usuario->getPermisonly(7)->opciones=="M"?'selected':''):'' ?>>Mesa</option>
+                	<option value="I" <?php echo $usuario->getPermisonly(7)?($usuario->getPermisonly(7)->opciones=="I"?'selected':''):'' ?>>Datos de Inicio</option>
+                	<option value="C" <?php echo $usuario->getPermisonly(7)?($usuario->getPermisonly(7)->opciones=="C"?'selected':''):'' ?>>Numero de Inicio</option>
+                	<option value="N" <?php echo $usuario->getPermisonly(7)?($usuario->getPermisonly(7)->opciones=="N"?'selected':''):'selected' ?>>Ninguno</option>
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+              <label class="control-label">Reportes</label>
+                <select name="permisos[9]" class="form-control">
+                	<option value="N">No</option>
+                  	<option value="S" <?php echo $usuario->getPermisonly(9)?($usuario->getPermisonly(9)->opciones=="S"?'selected':''):'' ?>>Si</option>
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+              <label class="control-label">Reportes Especiales</label>
+                <select name="permisos[10]" class="form-control">
+                	<option value="N">No</option>
+                  	<option value="T" <?php echo $usuario->getPermisonly(10)?($usuario->getPermisonly(10)->opciones=="T"?'selected':''):'' ?>>Si</option>
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+              <label class="control-label">Listar todas las siglas</label>
+                <select name="permisos[8]" class="form-control" id="listagen">
+                	<option value="N">No</option>
+                  	<option value="T" <?php echo $usuario->getPermisonly(8)?($usuario->getPermisonly(8)->opciones=="T"?'selected':''):'' ?>>Si</option>
+                </select>
+            </div> 
+            <div class="form-group col-md-2">
+              <label class="control-label">Acceso a Datum</label>
+                <select name="permisos[12]" class="form-control" >
+                  <option value="N">No</option>
+                    <option value="S" <?php echo $usuario->getPermisonly(12)?($usuario->getPermisonly(12)->opciones=="S"?'selected':''):'' ?>>Si</option>
+                </select>
+            </div> 
+            <div class="form-group col-md-2">
+              <label class="control-label">Modificar todo</label>
+                <select name="permisos[13]" class="form-control" >
+                  <option value="N">No</option>
+                    <option value="S" <?php echo $usuario->getPermisonly(13)?($usuario->getPermisonly(13)->opciones=="S"?'selected':''):'' ?>>Si</option>
+                </select>
+            </div> 
+            <div class="form-group col-md-2">
+              <label class="control-label">Estadisticas</label>
+                <select name="permisos[14]" class="form-control">
+                  <option value="N">No</option>
+                    <option value="S" <?php echo $usuario->getPermisonly(14)?($usuario->getPermisonly(14)->opciones=="S"?'selected':''):'' ?>>Si</option>
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+              <label class="control-label">Generar número único</label>
+                <select name="permisos[15]" class="form-control">
+                  <option value="N">No</option>
+                    <option value="S" <?php echo $usuario->getPermisonly(15)?($usuario->getPermisonly(15)->opciones=="S"?'selected':''):'' ?>>Si</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+              <label class="control-label">Reporte total num.Unico</label>
+                <select name="permisos[16]" class="form-control">
+                  <option value="N">No</option>
+                    <option value="S" <?php echo $usuario->getPermisonly(16)?($usuario->getPermisonly(16)->opciones=="S"?'selected':''):'' ?>>Si</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+              <label class="control-label">Ver a Imputados</label>
+                <select name="permisos[17]" class="form-control">
+                  <option value="N">No</option>
+                    <option value="S" <?php echo $usuario->getPermisonly(17)?($usuario->getPermisonly(17)->opciones=="S"?'selected':''):'' ?>>Si</option>
+                </select>
+            </div>                    
+          </div> 
+        </div>
+      </div>
+      <div class="box-footer">
+        <div class="col-lg-2 col-md-2 pull-right">
+          <button type="submit"  class="btn btn-success btn-flat">Registrar</button>
+        </div> 
+      </div>
+    </div>
+  </div>
+</div>
+<?php echo Form::close(); ?>
+<div class="row">
+  <div class="col-md-12">
+    <div class="box box-warning collapsed-box">
+      <div class="box-header">
+        <h3 class="text-blue">Ver elementos ya asociados al usuario</h3>
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+          </button>
+        </div>
+      </div>
+      <div class="box-body">
+        <?php if(count($usuario->getUsersubprocuradurias())>0): ?>
+          <div class="col-md-12">
+            <h4>Subprocuradurias</h4>
+            <?php foreach ($usuario->getUsersubprocuradurias() as $key): ?>
+              <div class="col-md-3">
+                <div class="box box-danger box-solid">
+                  <div class="box-header with-border">
+                    <div style="margin-right: 15px;">
+                      <?php echo $key->getSubprocuradurias()->subprocuraduria ?> --<?php echo $key->accion=='C'?'(Consulta)':'(Captura)' ?>
+                    </div>
+                    <div class="box-tools pull-right">
+                      <button type="button" class="btn btn-box-tool quitar-s-<?php echo $key->id ?>" data-placement="top"  data-html="true" data-toggle="popover" title="¿Esta seguro de esta operación?"  data-content="<button class='btn btn-success btn-sm btn-flat boton' id='<?php echo $key->id ?>' data-name='s' type='button' onclick='eliminar(event)'>Aceptar</button><button type='button' class='btn btn-danger btn-sm btn-flat boton cancelar' data-id='<?php echo $key->id ?>' data-name='s' onclick='cerrarPop(event)'>Cancelar</button>"><i class="fa fa-times"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <?php endforeach ?>
+          </div>
+        <?php endif ?>
+        <?php if(count($usuario->getUsersagencias())>0): ?>
+          <div class="col-md-12">
+            <h4>Agencias</h4>
+            <?php foreach ($usuario->getUsersagencias() as $key): ?>
+              <div class="col-md-3">
+                <div class="box box-warning box-solid">
+                  <div class="box-header with-border">
+                    <div style="margin-right: 15px;">
+                      <?php echo $key->getAgencias()->agencia ?> --<?php echo $key->accion=='C'?'(Consulta)':'(Captura)' ?>
+                    </div>
+                    <div class="box-tools pull-right">
+                      <button type="button" class="btn btn-box-tool quitar-a-<?php echo $key->id ?>" data-placement="top"  data-html="true" data-toggle="popover" title="¿Esta seguro de esta operación?"  data-content="<button class='btn btn-success btn-sm btn-flat boton' id='<?php echo $key->id ?>' data-name='a' type='button' onclick='eliminar(event)'>Aceptar</button><button type='button' class='btn btn-danger btn-sm btn-flat boton cancelar' data-id='<?php echo $key->id ?>' data-name='a' onclick='cerrarPop(event)'>Cancelar</button>" ><i class="fa fa-close"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <?php endforeach ?>
+          </div>
+        <?php endif ?>
+        <?php if(count($usuario->getUsersmesas())>0): ?>
+          <div class="col-md-12">
+            <h4>Mesas</h4>
+            <?php foreach ($usuario->getUsersmesas() as $key): ?>
+              <div class="col-md-3">
+                <div class="box box-primary box-solid">
+                  <div class="box-header with-border">
+                    <div style="margin-right: 15px;">
+                      <?php echo $key->getMesas()->mesa ?>
+                    </div>
+                    <div class="box-tools pull-right">
+                      <button type="button" class="btn btn-box-tool quitar-m-<?php echo $key->id ?>" data-placement="top"  data-html="true" data-toggle="popover" title="¿Esta seguro de esta operación?"  data-content="<button class='btn btn-success btn-sm btn-flat boton' id='<?php echo $key->id ?>' data-name='m' type='button' onclick='eliminar(event)'>Aceptar</button><button type='button' class='btn btn-danger btn-sm btn-flat boton cancelar' data-id='<?php echo $key->id ?>' data-name='m' onclick='cerrarPop(event)'>Cancelar</button>"><i class="fa fa-close"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <?php endforeach ?>
+          </div>
+        <?php endif ?>
+        <?php if(count($usuario->getUsersgrupostipos())>0): ?>
+          <div class="col-md-12">
+            <h4>Grupo de mesas</h4>
+            <?php foreach ($usuario->getUsersgrupostipos() as $key): ?>
+              <div class="col-md-3">
+                <div class="box box-default box-solid">
+                  <div class="box-header with-border">
+                    <div style="margin-right: 15px;">
+                      <?php echo $key->getUsugrupos()->grupo ?>
+                    </div>
+                    <div class="box-tools pull-right">
+                      <button type="button" class="btn btn-box-tool quitar-gpom-<?php echo $key->id ?>" data-placement="top"  data-html="true" data-toggle="popover" title="¿Esta seguro de esta operación?"  data-content="<button class='btn btn-success btn-sm btn-flat boton' id='<?php echo $key->id ?>' data-name='gpom' type='button' onclick='eliminar(event)'>Aceptar</button><button type='button' class='btn btn-danger btn-sm btn-flat boton cancelar' data-id='<?php echo $key->id ?>' data-name='gpom' onclick='cerrarPop(event)'>Cancelar</button>"><i class="fa fa-close"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <?php endforeach ?>
+          </div>
+        <?php endif ?>
+        <?php if(count($usuario->getUsersgpoagencias())>0): ?>
+          <div class="col-md-12">
+            <h4>Grupo de Agencias</h4>
+            <?php foreach ($usuario->getUsersgpoagencias() as $key): ?>
+              <div class="col-md-3">
+                <div class="box box-success box-solid">
+                  <div class="box-header with-border">
+                    <div style="margin-right: 15px;">
+                      <?php echo $key->getGpoagencias()->grupo ?>
+                    </div>
+                    <div class="box-tools pull-right">
+                      <button type="button" class="btn btn-box-tool quitar-gpoa-<?php echo $key->id ?>" data-placement="top"  data-html="true" data-toggle="popover" title="¿Esta seguro de esta operación?"  data-content="<button class='btn btn-success btn-sm btn-flat boton' id='<?php echo $key->id ?>' data-name='gpoa' type='button' onclick='eliminar(event)'>Aceptar</button><button type='button' class='btn btn-danger btn-sm btn-flat boton cancelar' data-id='<?php echo $key->id ?>' data-name='gpoa' onclick='cerrarPop(event)'>Cancelar</button>" ><i class="fa fa-times"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <?php endforeach ?>
+          </div>
+        <?php endif ?>
+
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<?php echo Form::open("usuarios/asociarelementos/".Cifrar::todo($usuario->id),'POST','class="form form-items"'); ?>
+<div class="row">
+  <div class="col-lg-12 col-md-12 capcon">
+    <div class="box box-info " >
+      <div class="box-header">
+        <h3 class="text-green">Asignar permisos para consulta y captura</h3>
+      </div>
+      <div class="box-body">
+        <div class="col-md-12">
+          <div><h4 class="text-red">Acceso extras para consultas</h4></div>
+          <div class="col-lg-3"><b>Subprocuradurias</b> </div>
+          <div class="col-lg-9">
+            <?php echo Form::dbSelect('subs[]','subprocuraduria',array('subprocuradurias','listar'),'','class="form-control select2d subs"  multiple="multiple"'); ?>
+          </div>
+          <div class="col-lg-12"><hr></div>
+          <div class="col-lg-3"><b>Agencias</b> </div>
+          <div class="col-lg-9">
+            <?php echo Form::dbSelect('agenciasq[]','nombre',array('agencias','listarsimple'),'','class="form-control select2d agenciasq"  multiple="multiple"'); ?>
+          </div>
+          <div class="col-lg-12"><hr></div>
+          <div class="col-lg-3"><b>Mesas</b></div>
+          <div class="col-lg-9">
+            <?php echo Form::dbSelect('mesasq[]','nombre',array('mesas','listarmt'),'','class="form-control select2d mesasq"  multiple="multiple"'); ?>
+          </div>
+          <div class="col-lg-12"><hr></div>
+
+          <div class="col-lg-12"><hr></div>
+          <div><h4 class="text-red">Acceso extras para captura</h4></div>
+          <div class="div-agencias">
+              <div class="col-lg-3"><b>Subprocuradurias extras </b> </div>
+              <div class="col-lg-9">
+                <?php echo Form::dbSelect('subsvistas[]','subprocuraduria',array('subprocuradurias','listar'),'','class="form-control select2d subs"  multiple="multiple"'); ?>
+              </div>
+              <div class="col-lg-12"><hr></div>
+              <div class="col-lg-3"><b>Agencias extras para visualizar</b> </div>
+              <div class="col-lg-9">
+                <?php echo Form::dbSelect('agenciasvistas[]','nombre',array('agencias','listarsimple'),'','class="form-control select2d agenciasvistas"  multiple="multiple"'); ?>
+              </div>
+              <div class="col-lg-12"><hr></div>
+          </div>
+          <div class="col-lg-3"><b>*Grupo de mesas para visualizar</b> </div>
+          <div class="col-lg-9">
+            <?php echo Form::dbSelect('mesasvistas[]','grupo',array('usugrupos','listar'),'','class="form-control select2d mesasvistas"  multiple="multiple" '); ?>
+          </div>
+          <div class="col-lg-12"><hr></div>
+
+           <div class="col-lg-12"><hr></div>
+          <div><h4 class="text-red">Grupo de agencias para recibir y enviar expedientes</h4></div>
+          <div class="col-lg-3"><b>*Grupo de agencias</b> </div>
+          <div class="col-lg-9">
+            <?php echo Form::dbSelect('gruposa[]','grupo',array('gpoagencias','listar2'),'TODAS','class="form-control select2d gruposa"  multiple="multiple" '); ?>
+          </div>
+           
+        </div>
+      </div>
+      <div class="box-footer">
+        <div class="errores"></div>
+        <div class="col-lg-2 col-md-2 pull-right">
+          <button type="submit"  class="btn btn-success btn-flat" id="botontodo">Registrar</button>
+        </div> 
+      </div>
+    </div>
+  </div>
+</div>
+<?php echo Form::close() ?>
+
+
+<!-- Form close -->
+<?php echo Tag::js('usuarios/usuarios'); ?>
+<?php echo Tag::js('plugins/select2/select2.full.min'); ?>
+<?php echo Tag::js('plugins/select2/i18n/es'); ?>

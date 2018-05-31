@@ -1,0 +1,12 @@
+<script type="text/javascript">
+$("#busquedas_distritos_id").change(function(){
+var datos_id=$("#busquedas_distritos_id").val();
+url="<?php echo PUBLIC_PATH.'municipios/mostrar/'; ?>" + datos_id;
+$("#div_busquedas_municipios").load(url);
+});
+$("#busquedas_municipios_id").change(function(){
+var datos_id=$("#busquedas_municipios_id").val();
+url="<?php echo PUBLIC_PATH.'localidades/mostrar/'; ?>" + datos_id;
+$("#div_busquedas_localidades").load(url);
+});
+</script>

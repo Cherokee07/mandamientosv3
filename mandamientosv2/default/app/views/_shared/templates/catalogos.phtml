@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo APP_CHARSETF; ?>" />
+<meta http-equiv="Content-Type" content="text/javascript; charset=<?php echo APP_CHARSETF; ?>" />
+<title>SISTEMA DE ORDENES DE APREHENSION</title>
+  <?php Tag::css('catalogos') ?> 
+  <?php Tag::css('especiales') ?> 
+  <?php Tag::css('style') ?>
+  <?php Tag::css('jquery.ui.datepicker') ?>
+  <?php Tag::css('jquery-ui') ?>
+  <?php echo Html::includeCss() ?>
+  <?php echo Tag::js('jquery/jquery.min'); ?>  
+  <?php echo Tag::js('jquery/jquery-ui.min'); ?>  
+  <?php echo Tag::js('jquery/jquery.kumbiaphp.min'); ?>
+  <?php echo Tag::js('jquery/jquery.validate'); ?>  
+  <?php echo Tag::js('jquery/jquery.maskedinput'); ?>
+  <?php echo Tag::js('jquery/jquery.maskMoney'); ?>  
+  <?php echo Tag::js('datepicker/datepicker'); ?>  
+<script style='javascript'>
+  $(document).ready(function() {
+	 $("#formulario").validate();
+  });
+	function convierte(campo){
+		campo.value = campo.value.toUpperCase();
+	}  
+	function cierra(ruta){
+		if ((!ruta) || (ruta=="")){
+			window.parent.location.reload();
+		}
+		else{
+			window.parent.location.href = "<?php echo PUBLIC_PATH.@$datos['modelo'].'/muestra/'; ?>"+ruta;
+		}
+		window.parent.Shadowbox.close();
+	}
+</script>
+</head>
+<?php
+	function fecDef($campo){
+		$aux = Form::getFieldValue($campo);
+		if (@$aux){
+			$temp = explode('-',$aux);
+			return $temp[2].'-'.$temp[1].'-'.$temp[0]; 
+			
+		}
+		return date('d-m-Y');		
+	}
+?>
+<body <?php echo ((@$datos['guardo']==1)?'onLoad="cierra('.@$datos['idmuestra'].')"':'')?>>
+	<?php View::content(); ?>
+</body>
+</html>

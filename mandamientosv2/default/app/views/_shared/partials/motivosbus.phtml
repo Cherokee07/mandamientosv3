@@ -1,0 +1,7 @@
+<script type="text/javascript">
+$("<?php echo "#busquedas_estadosoa_id" ?>").change(function(){
+var datos_id=$("<?php echo "#busquedas_estadosoa_id" ?>").val();
+url="<?php echo PUBLIC_PATH.'ordenes/motivos/'; ?>" + datos_id;
+$("<?php echo "#div_tiposoa_id" ?>").load(url);
+});
+</script>

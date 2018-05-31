@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo APP_CHARSETF; ?>" />
+<meta http-equiv="Content-Type" content="text/javascript; charset=<?php echo APP_CHARSETF; ?>" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>SISTEMA DE ORDENES DE APREHENSION</title>
+  <?php Tag::css('estilos') ?>
+  <?php Tag::css('style') ?>
+  <?php Tag::css('especiales') ?>  
+  <?php Tag::css('menu') ?>
+  <?php Tag::css('shadowbox') ?>    
+  <?php Tag::css('jquery-ui') ?>  
+  <?php Tag::css('jquery.ui.datepicker') ?>
+  <?php Tag::css('jquery.dataTables_themeroller') ?>
+  <?php echo Html::includeCss() ?>
+  <?php echo Tag::js('jquery/jquery.min'); ?>
+  <?php echo Tag::js('jquery/jquery-ui.min'); ?>
+  <?php echo Tag::js('jquery/jquery.kumbiaphp'); ?>
+  <?php //echo Tag::js('jquery/jquery+kumbiaphp'); ?>
+  <?php echo Tag::js('jquery/jquery.kumbiaphp.min'); ?> 
+  <?php echo Tag::js('jquery/jquery.validate'); ?>  
+  <?php echo Tag::js('jquery/jquery.maskedinput'); ?>
+  <?php echo Tag::js('jquery/jquery.maskMoney'); ?>
+  <?php echo Tag::js('jquery/jquery.dataTables.min'); ?>
+  <?php echo Tag::js('jquery/shadowbox'); ?>  
+  <script type='text/javascript'>
+	Shadowbox.init({
+	overlayColor: "#000",
+	overlayOpacity: '0.6',
+	modal: true,
+	handleOversize: "rezise",
+	//displayNav: false,
+	enableKeys: false,
+	onClose: function(){ /*window.location.reload();*/ }
+	});
+  </script>    
+<!-- TemplateEndEditable -->
+<!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+</head>
+<?php $valido = Usuarios::isValid(); ?>
+<body>
+	<div align="center">
+      <div id="marco">
+	    <div id="header">
+		    <div id="header_izq"><?php echo Html::img('formato/logotipo.png','','width="110" border="0"') ?></a></div>
+   				<div id="header_der">
+                  <?php echo Html::img('formato/logogob.png','','width="200" border="0"') ?>
+                </div>
+<div id="header_cen">
+                	<h1 class="Tit_Encabezado">FISCALIA GENERAL DEL ESTADO</h1></div>					
+	    </div>					
+        <div id="usuario">				
+		<?php
+			if($valido){ ?>
+			<div id="usu_der">
+				<?php echo Html::img('formato/usuario.png','','width="40" border="0"') ?>
+			</div>		
+			<div id ="usu_izq">
+				<strong> <?php echo utf8_encode(Session::get('titulo').' '.Session::get('nombre').' '.Session::get('paterno').' '.Session::get('materno')); ?></strong><br>
+				<?php echo Html::link('principal/salir','Cerrar Sesión','class="linkusu"'); ?>
+			</div>
+			<?php }else{ ?>
+			<div id="usu_der">
+				<?php echo Html::img('formato/entrar.png','','width="40" border="0"') ?>
+			</div>		
+			<div id ="usu_izq"><br>
+				<strong>VALIDANDO USUARIO</strong>
+			</div>			
+			<?php } ?>
+		</div>
+
+            <div id="barra">
+            	<div id="bmenu">
+		<?php if($valido){	?>
+ <div id="marco_menu">
+<!--MENU-->
+<!--MENU-->
+<ul class="menu2">
+	<li class="top"><a href=<?php echo PUBLIC_PATH.'menus'; ?> id="index" class="top_link"><span class="down">Inicio</span></a>
+
+	</li>
+	<li class="top"><a href="#" id="usuarios" class="top_link"><span class="down">Usuario</span></a>
+		<ul class="sub">
+            <li><a href=<?php echo PUBLIC_PATH.'usuarios/cambiar/'.Session::get('id'); ?> class="fly" rel=<?php echo Session::get('mj_undato');?>>Cambiar Contraseña</a></li>		
+		</ul>				
+	</li>
+	<?php if ((Session::get('oficio')!='S') && ((Session::get('captura')=='S'))){ ?>
+	<li class="top"><a href="#" id="captura" class="top_link"><span class="down">Captura</span></a>
+		<ul class="sub">
+            <li><a href=<?php echo PUBLIC_PATH.'ordenes/inicia'; ?> class="fly" rel=<?php echo Session::get('mj_inicia');?>>Orden de Aprehensión</a></li>
+			<li><a href=<?php echo PUBLIC_PATH.'ordenes/busqueda/1'; ?> class="fly" rel=<?php echo Session::get('mj_inicia');?>>Seguimiento</a></li>						
+			<li><a href=<?php echo PUBLIC_PATH.'ordenes/busqueda/2'; ?> class="fly" rel=<?php echo Session::get('mj_inicia');?>>Modificación</a></li>					
+			<li><a href=<?php echo PUBLIC_PATH.'ordenes/busqueda/3'; ?> class="fly" rel=<?php echo Session::get('mj_inicia');?>>Estados Delito</a></li>
+		</ul>				
+	</li>
+	<?php } ?>
+	<?php if (Session::get('oficio')=='S'){ ?>
+    <li class="top"><a href="#" id="consultas" class="top_link"><span class="down">Consulta</span></a>
+    	<ul class="sub">
+            <li><a href=<?php echo PUBLIC_PATH.'menus/consultas/12'; ?>  class="fly" rel=<?php echo Session::get('mj_inicia');?>>Consultas</a></li>
+        </ul>
+    </li>
+	
+	<?php } elseif(Session::get('consultas')=='S') { ?>
+    <li class="top"><a href="#" id="consultas" class="top_link"><span class="down">Consulta</span></a>
+    	<ul class="sub">
+            <li><a href=<?php echo PUBLIC_PATH.'ordenes/busqueda/4'; ?>  class="fly" rel=<?php echo Session::get('mj_inicia');?>>Expediente Penal</a></li>
+			<li><a href=<?php echo PUBLIC_PATH.'indiciados/busqueda'; ?>  class="fly" rel=<?php echo Session::get('mj_inicia');?>>Presuntos</a></li>						
+			<li><a href=<?php echo PUBLIC_PATH.'ofendidos/busqueda'; ?>  class="fly" rel=<?php echo Session::get('mj_inicia');?>>Ofendidos</a></li>					
+			<li><a href=<?php echo PUBLIC_PATH.'ordenes/busquedadiv'; ?> class="fly" rel=<?php echo Session::get('mj_inicia');?> >Diversos Criterios</a></li>
+			<li><a href=<?php echo PUBLIC_PATH.'reportes/porvictima'; ?> class="fly" rel=<?php echo Session::get('mj_inicia');?> >Reporte por victima</a></li>
+			<li><a href=<?php echo PUBLIC_PATH.'reportes/porregionydel'; ?> class="fly" rel=<?php echo Session::get('mj_inicia');?> >Reporte por region y delito</a></li>
+			<?php if((Session::get('niveles_id')==1) && ((Session::get('subprocuradurias_id')==1) || (Session::get('subprocuradurias_id')==15)) && (Session::get('reportes')=='S')) {?>
+				<li><a href=<?php echo PUBLIC_PATH.'ordenes/listado'; ?> class="fly" rel=<?php echo Session::get('mj_inicia');?> >Reportes</a></li>
+				<li><a href=<?php echo PUBLIC_PATH.'bitacora/obtiene'; ?> class="fly" rel=<?php echo Session::get('mj_inicia');?> >Bitacora</a></li>
+				<li><a href=<?php echo PUBLIC_PATH.'bitacora/movimientos'; ?> class="fly" rel=<?php echo Session::get('mj_inicia');?> >Movimientos Orden</a></li>
+			<?php } ?>
+			<!-- <li><a href=<?php //echo PUBLIC_PATH.'reportes/sendFile'; ?> class="fly" >Exporta</a></li> -->
+        </ul>
+    </li>
+	<?php } ?>
+	<?php if (Session::get('amparos')=='S'){ ?>
+	<li class="top"><a href="#" id="consultas" class="top_link"><span class="down">Amparos</span></a>
+    	<ul class="sub">
+			<li><a href=<?php echo PUBLIC_PATH.'fedjuzgados'; ?> class="fly">Juzgados Federales</a>
+				<ul>
+					<li><a href=<?php echo PUBLIC_PATH.'fedjuzgados/crear'; ?> rel=<?php echo Session::get('mj_undato');?>>Nvo. Juzgado Federal</a></li>
+				</ul>
+			</li>			
+        </ul>		
+    </li>
+	<?php } ?>
+</ul>
+</div><!-- FIN MENU-->
+<?php } ?>
+</div> <!-- FIN DE bmenu-->
+          </div>
+            <div id="contenido">
+				<?php View::content(); ?>			
+		    </div>
+		<?php if (!@$apagar) { ?>
+		<div id="pie">		
+			<b>Procuraduría General de Justicia del Estado - Unidad de Sistemas y Estadistica</b>
+		</div>
+		<?php } ?>		
+    	</div>		
+    </div>
+</body>
+</html>

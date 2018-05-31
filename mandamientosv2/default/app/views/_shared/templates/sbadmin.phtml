@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 2 | Dashboard</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">-->
+  <?php Tag::css('bootstrap/css/bootstrap.min') ?>
+
+  <!-- Font Awesome -->
+  
+  <?php Tag::css('style') ?>
+   <?php Tag::css('jquery.ui.datepicker') ?>
+  <?php Tag::css('jquery-ui') ?>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style   <link rel="stylesheet" href="dist/css/AdminLTE.min.css">-->
+  <?php Tag::css('dist/css/AdminLTE.min')?>
+  <!-- <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">  -->
+  <?php Tag::css('dist/css/skins/_all-skins.min') ?>
+  <!-- iCheck  <link rel="stylesheet" href="plugins/iCheck/flat/blue.css"> -->
+  <?php Tag::css('plugins/iCheck/flat/blue') ?>
+  <!-- Morris chart  <link rel="stylesheet" href="plugins/morris/morris.css">-->
+  <?php Tag::css('plugins/morris/morris') ?>
+  <!-- jvectormap   <link rel="stylesheet" href="plugins/jvectormap/jquery-jvectormap-1.2.2.css">-->
+  <?php Tag::css('plugins/jvectormap/jquery-jvectormap-1.2.2') ?>
+  <!-- Date Picker  <link rel="stylesheet" href="plugins/datepicker/datepicker3.css"> -->
+  <?php Tag::css('plugins/datepicker/datepicker3') ?>
+  <!-- Daterange picker   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">-->
+  <?php Tag::css('plugins/daterangepicker/daterangepicker') ?>
+  <!-- bootstrap wysihtml5 - text editor   <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">-->
+  <?php Tag::css('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min') ?>
+
+  <link href="<?php echo PUBLIC_PATH ?>css/plugins/dataTables.bootstrap.css"  rel="stylesheet" type="text/css">
+
+
+
+
+</head>
+
+
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+            
+            <header class="main-header">
+                <!-- Logo -->
+
+                <!-- Header Navbar: style can be found in header.less -->
+                <nav class="navbar navbar-static-top">
+                    <!-- Sidebar toggle button-->
+                    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                    </a>
+
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+
+                            <li class="dropdown user user-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <!--<img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">-->
+                                  <div id="usur-image">
+				<?php echo Html::img('user2-160x160.jpg','','width="30" border="0" class="img-circle"') ?>
+			</div>	
+                                    
+                                    <span class="hidden-xs">Lic. Adrián Sánchez Vázquez</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <!-- User image -->
+                                    <li class="user-header">
+                                        <!--<img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">-->
+                                         <div id="usur-image">
+				<?php echo Html::img('user2-160x160.jpg','','width="20" border="0" class="img-circle"') ?>
+			</div>	
+                                        <p>
+                                            Lic. Adrián Sánchez Vázquez-Jefe del departamento del Site
+
+                                        </p>
+                                    </li>
+                                    <!-- Menu Body -->
+                                    <li class="user-body">
+
+                                    </li>
+                                    <!-- Menu Footer-->
+                                    <li class="user-footer">
+                                        <div class="pull-left">
+                                            <a href="#" class="btn btn-default btn-flat">Perfil</a>
+                                        </div>
+                                        <div class="pull-right">
+                                            <a href="#" class="btn btn-default btn-flat">Cerrar Sesión</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- Control Sidebar Toggle Button -->
+                            <li>
+                                <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="main-sidebar">
+
+
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+                    <!-- Sidebar user panel -->
+                    <div class="user-panel">
+                        <div class="pull-left image  img-circle">
+                           <!--<img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">-->
+                             
+				<?php echo Html::img('user2-160x160.jpg','','width="20" border="0" class="img-circle"') ?>
+			
+                        </div>
+                        <div class="pull-left info">
+                            <p>Lic. Adrián Sánchez</p>
+                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                        </div>
+                    </div>                  
+
+
+                    <ul class="sidebar-menu">
+                        <li class="header">MENÚ PRINCIPAL</li>
+                        
+                        <!-- INICIO -->
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-home "></i> <span>INICIO</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                        </li>
+
+                        <li class="active treeview">
+                            <a href="#">
+                                <i class="fa fa-user text-red "></i> <span>USUARIO</span>  <!--Dashboard-->
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+
+                                <li class="active"><a href="index.html"><i class="fa fa-lock text-center text-orange"></i> CAMBIAR CONTRASEÑA</a></li> <!-- Dashboard v1 -->
+                                <li><a href="index2.html"><i class="fa fa-circle-o text-center text-orange"></i> ROL DE USUARIO</a></li>
+                            </ul>
+                        </li>
+                        <li class=" treeview">
+                            <a href="#">
+                                <i class="fa fa fa-edit text-aqua colorpicker-color "></i> <span>CAPTURAR</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span> 
+
+                            </a>
+                            <ul class="treeview-menu">
+                               <?php //echo Html::link("views/nuevaorden/nuevaorden","ORDEN DE APREHENSION",'class="fa fa-circle-o text-blue text-center"' );  ?>
+                                 <li class="active"><a href="<?php echo PUBLIC_PATH ?>orden/inicia"><i class="fa fa-circle-o text-aqua"></i> <span>ORDEN DE APREHENSION </span></a></li>
+                                      
+ <!-- <li><a href="views/nuevaorden"><i class="fa fa-circle-o text-blue text-center"></i> ORDEN DE APREHENSION</a></li>-->
+                                <li class="active"><a href="<?php echo PUBLIC_PATH ?>seguimiento/seguimiento"><i class="fa fa-circle-o text-aqua"></i> <span>SEGUIMIENTO </span></a></li>
+                               <!-- <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o text-blue text-center"></i> SEGUIMIENTO</a></li>-->
+                                <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o text-blue text-center"></i> MODIFICACION </a></li>
+                                <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o text-blue text-center"></i> ESTARDO DE DELITOS</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="pages/widgets.html">
+                                <i class="fa fa-folder"></i> <span>SEGUIMIENTO</span>
+                                <!--<span class="pull-right-container">
+                                    <small class="label pull-right bg-green">new</small>-->
+                                </span>
+                            </a>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-check-square-o text-lime"></i>
+                                <span>CONSULTA</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o text-blue text-center"></i> EXPEDIENTE PENAL</a></li>
+                                <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o text-blue text-center"></i> PRESUNTOS</a></li>
+                                <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o text-blue text-center"></i> OFENDIDOS</a></li>
+                                <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o text-blue text-center"></i> DIVERSSOS CRITERIOS</a></li>
+                                <!-- <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o text-blue text-center"></i> Reportes por Victima </a></li>
+                                  <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o text-blue"></i> Reporte por Region y delito</a></li>
+                                <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o text-blue"></i> Reportes</a></li>-->
+                                <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o text-blue text-center"></i> BITACORAS</a></li>
+                                <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o text-blue text-center"></i> MOVIMIENTOS ORDEN</a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-book  text-fuchsia"></i>
+                                <span>REPORTES</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="pages/UI/general.html"><i class="fa fa-circle-o text-blue text-center"></i> Reportes</a></li>
+                                <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o text-blue text-center"></i> REPORTES POR VICTIMAS</a></li>
+                                <li><a href="pages/UI/buttons.html"><i class="fa fa-circle-o text-blue text-center"></i> REPORTE POR REGION Y DELITO</a></li>
+                               <!-- <li><a href="pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
+                                <li><a href="pages/UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
+                                <li><a href="pages/UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>-->
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-file-text text-yellow FontColor3BG"></i> <span>AMPAROS</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="pages/forms/general.html"><i class="fa fa-circle-o text-blue"></i> JUZGADOS FEDERALES </a></li>
+                                <li><a href="pages/forms/advanced.html"><i class="fa fa-circle-o text-blue"></i> Advanced Elements</a></li>
+                                <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o text-blue"></i> Editors</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-folder text-teal"></i> <span>BUSCAR EXPEDIENTES</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o text-blue"></i> Invoice</a></li>
+                                <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o text-blue"></i> Profile</a></li>
+                                <li><a href="pages/examples/login.html"><i class="fa fa-circle-o text-blue"></i> Login</a></li>
+                                <li><a href="pages/examples/register.html"><i class="fa fa-circle-o text-blue"></i> Register</a></li>
+                                <li><a href="pages/examples/lockscreen.html"><i class="fa fa-circle-o text-blue"></i> Lockscreen</a></li>
+                                <li><a href="pages/examples/404.html"><i class="fa fa-circle-o text-blue"></i> 404 Error</a></li>
+                                <li><a href="pages/examples/500.html"><i class="fa fa-circle-o text-blue"></i> 500 Error</a></li>
+                                <li><a href="pages/examples/blank.html"><i class="fa fa-circle-o text-blue"></i> Blank Page</a></li>
+                                <li><a href="pages/examples/pace.html"><i class="fa fa-circle-o text-blue"></i> Pace Page</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="header">LABELS</li>
+                        <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
+                        <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
+                        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+                    </ul>
+                    
+       
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+            <section class="content-wrapper">
+              
+                 
+               <?php View::content();?>   
+   
+            </section>    
+           
+                    
+                </div>
+
+                 
+
+
+       
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<!-- ./wrapper -->
+
+<?php echo Html::includeCss() ?>
+<!-- jQuery 2.2.3 <script src="plugins/jQuery/jquery-2.2.3.min.js"></script> -->
+<?php echo Tag::js('plugins/jQuery/jquery-2.2.3.min') ?>
+<!-- jQuery UI 1.11.4 -->
+
+
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>  $.widget.bridge('uibutton', $.ui.button);</script>
+<!-- Bootstrap 3.3.6 <script src="bootstrap/js/bootstrap.min.js"></script>-->
+<?php echo Tag::js('bootstrap/js/bootstrap.min') ?>
+<!-- Morris.js charts -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<!--<script src="plugins/morris/morris.min.js"></script>-->
+<?php echo Tag::js('plugins/morris/morris.min') ?>
+<!-- Sparkline <script src="plugins/sparkline/jquery.sparkline.min.js"></script> -->
+<?php echo Tag::js('plugins/sparkline/jquery.sparkline.min') ?>
+<!-- jvectormap <script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script> -->
+<?php echo Tag::js('plugins/jvectormap/jquery-jvectormap-1.2.2.min') ?>
+<!--<script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>-->
+<?php echo Tag::js('plugins/jvectormap/jquery-jvectormap-world-mill-en') ?>
+<!-- jQuery Knob Chart <script src="plugins/knob/jquery.knob.js"></script>-->
+<?php echo Tag::js('plugins/knob/jquery.knob') ?>
+
+<!-- daterangepicker --> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+<!--<script src="plugins/daterangepicker/daterangepicker.js"></script>-->
+<?php echo Tag::js('plugins/daterangepicker/daterangepicker') ?>
+<!-- datepicker <script src="plugins/datepicker/bootstrap-datepicker.js"></script> -->
+<?php echo Tag::js('plugins/datepicker/bootstrap-datepicker') ?>
+<!-- Bootstrap WYSIHTML5 <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script> -->
+<?php echo Tag::js('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min') ?>
+<!-- Slimscroll <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script> -->
+<?php echo Tag::js('plugins/slimScroll/jquery.slimscroll.min') ?>
+<!-- FastClick <script src="plugins/fastclick/fastclick.js"></script>-->
+<?php echo Tag::js('plugins/fastclick/fastclick') ?>
+<!-- AdminLTE App <script src="dist/js/app.min.js"></script> -->
+<?php echo Tag::js('dist/js/app.min') ?>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) <script src="dist/js/pages/dashboard.js"></script>-->
+<?php echo Tag::js('dist/js/pages/dashboard') ?>
+<!-- AdminLTE for demo purposes <script src="dist/js/demo.js"></script>-->
+<?php echo Tag::js('dist/js/demo') ?>
+
+</body>
+</html>

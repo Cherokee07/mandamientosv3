@@ -1,0 +1,4 @@
+<!-- la consulta´para jalar solo los atributos (id, localidada, de la tabla localidades, y soloo listara el ide que ente caso solo es municipios_id)-->
+
+<?php echo Form::dbSelect('localidades_id','localidad',array('localidades','listar', $municipios_id),'Seleccione','class="form-control select2" style="width: 100%"') ?>
+              

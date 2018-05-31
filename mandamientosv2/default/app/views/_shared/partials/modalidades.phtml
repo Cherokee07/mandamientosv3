@@ -1,0 +1,7 @@
+<script type="text/javascript">
+$("<?php echo "#delitoid" ?>").change(function(){
+var datos_id=$("<?php echo "#delitoid" ?>").val();
+url="<?php echo PUBLIC_PATH.$datos['modelo'].'/modalidades/'; ?>" + datos_id;
+$("<?php echo "#div_modalidad" ?>").load(url);
+});
+</script>

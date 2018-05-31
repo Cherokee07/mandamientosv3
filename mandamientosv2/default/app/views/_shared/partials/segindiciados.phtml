@@ -1,0 +1,7 @@
+<script type="text/javascript">
+$("<?php echo "#lstindiciados" ?>").change(function(){
+var datos_id=$("<?php echo "#lstindiciados" ?>").val();
+url="<?php echo PUBLIC_PATH.'indiciados/segindiciados/'; ?>" + datos_id;
+$("<?php echo "#div_segindiciados" ?>").load(url);
+});
+</script>

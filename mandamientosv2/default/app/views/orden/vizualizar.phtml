@@ -1,0 +1,10 @@
+<?php
+	if(($visualizar)=='S'){
+		printf("%s %s %s %s",
+			"Fecha : ",Form::fecha($datos['modelo'].'.fecha','','style="width:80px"'),
+			"Num. Oficio : ",Form::text($datos['modelo'].'.oficio','style="width:80px" onblur="convierte(this)"'));
+	}
+	else{
+		echo "";
+	}
+?>

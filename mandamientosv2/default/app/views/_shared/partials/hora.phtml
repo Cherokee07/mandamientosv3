@@ -1,0 +1,19 @@
+<script type="text/javascript">
+	$(function() {
+		//donde datepicker es el ID del input que se asociara al componente datapicker
+		$.mask.definitions['H']='[012]';
+		$.mask.definitions['N']='[012345]';
+		$.mask.definitions['z']='[0123456789]';
+		$.mask.definitions['n']='[0123456789]';
+		$("<?php echo join(',',$parametros)?>").mask("Hz:Nn",{placeholder:"_"});
+		$("<?php echo join(',',$parametros)?>").blur(function() {
+			if($("<?php echo join(',',$parametros)?>").val().indexOf("_") == -1)	{
+				var hora = $("<?php echo join(',',$parametros)?>").val().split(":")[0];
+				if(parseInt(hora) > 23 )
+				{
+					$("<?php echo join(',',$parametros)?>").val("");
+				}
+			}
+		});
+	});
+</script>
